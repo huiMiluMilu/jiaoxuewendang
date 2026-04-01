@@ -1,0 +1,155 @@
+[
+  {
+    "id": 1,
+    "start": 121.74,
+    "end": 131.28,
+    "reasons": [
+      "这里"
+    ],
+    "texts": [
+      "其他这里会出现很多和老师相关的这种训资料"
+    ],
+    "frame_dir": "/Users/shihui/Desktop/玩玩编程/生产教学文档/simple-demo/transcript-first-30min/browser_dense_frames/window_001_0121_0131",
+    "events": [
+      {
+        "from_frame": "frame_0002.jpg",
+        "to_frame": "frame_0003.jpg",
+        "timestamp": 123.74,
+        "mean_diff": 14.6131,
+        "changed_ratio": 0.1228,
+        "bbox": [
+          970,
+          226,
+          409,
+          754
+        ],
+        "bbox_area_ratio": 0.1487,
+        "event_type": "page_change",
+        "keep_before": false,
+        "keep_after": true,
+        "confidence": 0.734,
+        "after_image": "/Users/shihui/Desktop/玩玩编程/生产教学文档/simple-demo/transcript-first-30min/browser_dense_annotated_first4/window_001_event_001_after.jpg"
+      },
+      {
+        "from_frame": "frame_0003.jpg",
+        "to_frame": "frame_0004.jpg",
+        "timestamp": 124.74,
+        "mean_diff": 6.7038,
+        "changed_ratio": 0.0703,
+        "bbox": [
+          970,
+          258,
+          405,
+          721
+        ],
+        "bbox_area_ratio": 0.1408,
+        "event_type": "page_change",
+        "keep_before": false,
+        "keep_after": true,
+        "confidence": 0.655,
+        "after_image": "/Users/shihui/Desktop/玩玩编程/生产教学文档/simple-demo/transcript-first-30min/browser_dense_annotated_first4/window_001_event_002_after.jpg"
+      },
+      {
+        "from_frame": "frame_0007.jpg",
+        "to_frame": "frame_0008.jpg",
+        "timestamp": 128.74,
+        "mean_diff": 7.3852,
+        "changed_ratio": 0.0826,
+        "bbox": [
+          970,
+          174,
+          405,
+          805
+        ],
+        "bbox_area_ratio": 0.1572,
+        "event_type": "page_change",
+        "keep_before": false,
+        "keep_after": true,
+        "confidence": 0.674,
+        "after_image": "/Users/shihui/Desktop/玩玩编程/生产教学文档/simple-demo/transcript-first-30min/browser_dense_annotated_first4/window_001_event_003_after.jpg"
+      },
+      {
+        "from_frame": "frame_0009.jpg",
+        "to_frame": "frame_0010.jpg",
+        "timestamp": 130.74,
+        "mean_diff": 2.1519,
+        "changed_ratio": 0.0283,
+        "bbox": [
+          981,
+          174,
+          382,
+          805
+        ],
+        "bbox_area_ratio": 0.1483,
+        "event_type": "page_change",
+        "keep_before": false,
+        "keep_after": true,
+        "confidence": 0.593,
+        "after_image": "/Users/shihui/Desktop/玩玩编程/生产教学文档/simple-demo/transcript-first-30min/browser_dense_annotated_first4/window_001_event_004_after.jpg"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "start": 412.1,
+    "end": 423.0,
+    "reasons": [
+      "注册"
+    ],
+    "texts": [
+      "今天我们也讲成了第一个就是小程序的一个注册上价",
+      "因为就像我们讲到玉民注册一样"
+    ],
+    "frame_dir": "/Users/shihui/Desktop/玩玩编程/生产教学文档/simple-demo/transcript-first-30min/browser_dense_frames/window_002_0412_0423",
+    "events": [
+      {
+        "from_frame": "frame_0002.jpg",
+        "to_frame": "frame_0003.jpg",
+        "timestamp": 414.1,
+        "mean_diff": 7.809,
+        "changed_ratio": 0.0627,
+        "bbox": [
+          125,
+          483,
+          1520,
+          306
+        ],
+        "bbox_area_ratio": 0.2243,
+        "event_type": "page_change",
+        "keep_before": false,
+        "keep_after": true,
+        "confidence": 0.644,
+        "after_image": "/Users/shihui/Desktop/玩玩编程/生产教学文档/simple-demo/transcript-first-30min/browser_dense_annotated_first4/window_002_event_001_after.jpg"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "start": 427.9,
+    "end": 434.96,
+    "reasons": [
+      "注册"
+    ],
+    "texts": [
+      "另外就是我们在注册小程序的时候"
+    ],
+    "frame_dir": "/Users/shihui/Desktop/玩玩编程/生产教学文档/simple-demo/transcript-first-30min/browser_dense_frames/window_003_0427_0434",
+    "events": []
+  },
+  {
+    "id": 4,
+    "start": 504.86,
+    "end": 517.74,
+    "reasons": [
+      "注册",
+      "选择"
+    ],
+    "texts": [
+      "关于注册小程序的时候",
+      "这个就是我们再去选择的时候",
+      "有个人注册跟公司主题区别"
+    ],
+    "frame_dir": "/Users/shihui/Desktop/玩玩编程/生产教学文档/simple-demo/transcript-first-30min/browser_dense_frames/window_004_0504_0517",
+    "events": []
+  }
+]

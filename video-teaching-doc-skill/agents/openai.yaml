@@ -1,0 +1,5 @@
+interface:
+  display_name: "Video Teaching Doc"
+  short_description: "Transcribe lesson videos, split steps, then draft teaching docs."
+  brand_color: "#1D4ED8"
+  default_prompt: "Use $video-teaching-doc-skill to first transcribe the lesson, then split it into steps, draft the teaching document, and only after that suggest screenshots and click-marking decisions."

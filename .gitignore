@@ -1,0 +1,24 @@
+.DS_Store
+__pycache__/
+*.pyc
+
+# Raw audio intermediates
+simple-demo/transcript-first-30min/audio_30min.wav
+simple-demo/transcript-first-30min/chunk_*.wav
+trial-run-v2/audio.wav
+
+# Dense capture intermediates
+simple-demo/transcript-first-30min/browser_dense_frames/
+simple-demo/transcript-first-30min/browser_dense_annotated_first1/
+simple-demo/transcript-first-30min/browser_dense_annotated_first2/
+simple-demo/transcript-first-30min/browser_dense_annotated_first4/
+trial-run-v2/frame_probe_1200/
+
+# Streaming and local decryption artifacts
+trial-run/custom_hls.m3u8
+trial-run/source_context.json
+trial-run-v2/latest_stream_url.txt
+trial-run-v2/local.key
+trial-run-v2/current_custom_hls.m3u8
+trial-run-v2/seg0.enc
+trial-run-v2/seg0.dec
