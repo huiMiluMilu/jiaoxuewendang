@@ -63,6 +63,30 @@ High confidence click markers usually combine multiple signals:
 
 If only one weak signal exists, keep the step but mark the click target as uncertain.
 
+## Click Target Priority
+
+Always decide **which exact control should be boxed** before drawing any red box.
+
+Use this priority order:
+
+1. if the cursor is clearly visible, box the clickable control under the cursor tip
+2. if the cursor is weak or absent, but the UI label is identifiable, box that exact button, menu item, field, or link
+3. if there are multiple controls with the same label, use row, card, modal, or nearby context to disambiguate
+4. if the frame does not uniquely identify the control, mark the frame as unsuitable and switch frames instead of guessing
+
+Do not treat the red box as a generic "related area" marker. It must point to the actual control used in the step.
+
+## Hard Annotation Rules
+
+- The boxed object must be the exact control the learner should click, select, input into, or confirm in this step.
+- The box must be tight to the control boundary and must not cover large empty space.
+- For text buttons such as `修改`, `下载`, `保存`, or `下一步`, box only the clickable text button area.
+- For left-side menus, box only the menu item itself, not the whole menu column.
+- For fields or links inside modals, box the field or link, not blank space near the modal title.
+- When identical labels appear multiple times, combine OCR with row-level or panel-level context before boxing.
+- If cursor location conflicts with semantic guess, prefer the control directly under the cursor tip.
+- If the current frame cannot support a unique control decision, return `需要换一帧` rather than drawing a speculative box.
+
 ## Ordering For Semi-Automatic Stage
 
 Use this order by default:
