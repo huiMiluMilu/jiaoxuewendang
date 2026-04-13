@@ -13,6 +13,19 @@
 - 转写整理稿：
   [前30分钟-转写整理稿.md](/Users/shihui/Desktop/玩玩编程/生产教学文档/simple-demo/transcript-first-30min/前30分钟-转写整理稿.md)
 
+## 快速开始
+
+- 30 秒上手：
+  [QUICKSTART.md](QUICKSTART.md)
+- 一键安装脚本：
+  [install.sh](install.sh)
+- Python 依赖：
+  [requirements.txt](requirements.txt)
+- 给任意 AI 工具的通用说明：
+  [UNIVERSAL_SETUP.md](UNIVERSAL_SETUP.md)
+- 给同事的团队说明：
+  [TEAM_SETUP.md](TEAM_SETUP.md)
+
 ## 飞书发布结果
 
 - 红框修正版发布结果：
