@@ -1,0 +1,142 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "doc_id": "XIBzd4EFYoxdUKxoZ8wcLfDXnwO",
+    "doc_url": "https://www.feishu.cn/docx/XIBzd4EFYoxdUKxoZ8wcLfDXnwO",
+    "log_id": "20260414145659CE546820A8B041132B10",
+    "message": "文档创建成功"
+  },
+  "image_results": [
+    {
+      "path": "/Users/shihui/Desktop/玩玩编程/生产教学文档/simple-demo/hVGcxc/work/refined_samples/frame_240.jpg",
+      "caption": "小tips截图A",
+      "result": {
+        "block_id": "doxcnEnNcfYO2g5b63UzMBGNFpf",
+        "document_id": "XIBzd4EFYoxdUKxoZ8wcLfDXnwO",
+        "file_token": "LRtWbkNeRoMgfGxA5CDcsi8Xnqc",
+        "type": "image"
+      }
+    },
+    {
+      "path": "/Users/shihui/Desktop/玩玩编程/生产教学文档/simple-demo/hVGcxc/work/refined_samples/frame_180.jpg",
+      "caption": "小tips截图B",
+      "result": {
+        "block_id": "doxcn53BW5AzygyZi1QWgqAUc6c",
+        "document_id": "XIBzd4EFYoxdUKxoZ8wcLfDXnwO",
+        "file_token": "DsWPbMB4qohkfxxaNAucPLUgnad",
+        "type": "image"
+      }
+    },
+    {
+      "path": "/Users/shihui/Desktop/玩玩编程/生产教学文档/simple-demo/hVGcxc/work/refined_samples/frame_360.jpg",
+      "caption": "小tips截图C",
+      "result": {
+        "block_id": "doxcnLL7mIWCI8hXuSI3hrE8Bjb",
+        "document_id": "XIBzd4EFYoxdUKxoZ8wcLfDXnwO",
+        "file_token": "JYHYbq0eRorj5YxuefRcbfbNnef",
+        "type": "image"
+      }
+    },
+    {
+      "path": "/Users/shihui/Desktop/玩玩编程/生产教学文档/simple-demo/hVGcxc/work/refined_samples/frame_480.jpg",
+      "caption": "小tips截图D",
+      "result": {
+        "block_id": "doxcnChE2HF5qJ6IP9P1DSPT6id",
+        "document_id": "XIBzd4EFYoxdUKxoZ8wcLfDXnwO",
+        "file_token": "HZYWb0NkJo927vx9vjxc6Z29nPh",
+        "type": "image"
+      }
+    },
+    {
+      "path": "/Users/shihui/Desktop/玩玩编程/生产教学文档/simple-demo/hVGcxc/work/refined_samples/frame_660.jpg",
+      "caption": "小tips截图E",
+      "result": {
+        "block_id": "doxcnjQVBJuLEIjt9GNmDLj8Kpf",
+        "document_id": "XIBzd4EFYoxdUKxoZ8wcLfDXnwO",
+        "file_token": "ZhrBbKMECogLxaxuUJ1cCDsdnrf",
+        "type": "image"
+      }
+    },
+    {
+      "path": "/Users/shihui/Desktop/玩玩编程/生产教学文档/simple-demo/hVGcxc/work/refined_samples/frame_60.jpg",
+      "caption": "步骤1截图",
+      "result": {
+        "block_id": "doxcnY5kTXG3oaBwUJQKV2nTZ4g",
+        "document_id": "XIBzd4EFYoxdUKxoZ8wcLfDXnwO",
+        "file_token": "AZL3bYlfBoyNmtxndxgc5MGJnge",
+        "type": "image"
+      }
+    },
+    {
+      "path": "/Users/shihui/Desktop/玩玩编程/生产教学文档/simple-demo/hVGcxc/work/samples/frame_900.jpg",
+      "caption": "步骤2截图",
+      "result": {
+        "block_id": "doxcnVaPe2DcZcr4Ma9QnqflIQb",
+        "document_id": "XIBzd4EFYoxdUKxoZ8wcLfDXnwO",
+        "file_token": "MvknbV6kJoZLz5x2kCTcbGpwnCf",
+        "type": "image"
+      }
+    },
+    {
+      "path": "/Users/shihui/Desktop/玩玩编程/生产教学文档/simple-demo/hVGcxc/work/samples/frame_1500.jpg",
+      "caption": "步骤3截图",
+      "result": {
+        "block_id": "doxcnP5x6iRe9zWO3VwoRMFkUJf",
+        "document_id": "XIBzd4EFYoxdUKxoZ8wcLfDXnwO",
+        "file_token": "F5WCbylGLoh8Mrx1SrzcQ6Kxnwd",
+        "type": "image"
+      }
+    },
+    {
+      "path": "/Users/shihui/Desktop/玩玩编程/生产教学文档/simple-demo/hVGcxc/work/samples/frame_1800.jpg",
+      "caption": "步骤4截图",
+      "result": {
+        "block_id": "doxcnOGnFqIEEeirMhUgkrrC1th",
+        "document_id": "XIBzd4EFYoxdUKxoZ8wcLfDXnwO",
+        "file_token": "GADpb95qLoSwOjxPnNTcSsIenIf",
+        "type": "image"
+      }
+    },
+    {
+      "path": "/Users/shihui/Desktop/玩玩编程/生产教学文档/simple-demo/hVGcxc/work/samples/frame_2400.jpg",
+      "caption": "步骤5截图",
+      "result": {
+        "block_id": "doxcnxJfwQp37Oq05dAkyPPBQ5c",
+        "document_id": "XIBzd4EFYoxdUKxoZ8wcLfDXnwO",
+        "file_token": "J4xdbFgG8ohtjAxD5BrcHcGynxd",
+        "type": "image"
+      }
+    },
+    {
+      "path": "/Users/shihui/Desktop/玩玩编程/生产教学文档/simple-demo/hVGcxc/work/samples/frame_3000.jpg",
+      "caption": "步骤6截图",
+      "result": {
+        "block_id": "doxcnk5F9hGQSBU0Y6h6NIzowGd",
+        "document_id": "XIBzd4EFYoxdUKxoZ8wcLfDXnwO",
+        "file_token": "TKKPbEBheo1yBZxeMNoc7TpinNb",
+        "type": "image"
+      }
+    },
+    {
+      "path": "/Users/shihui/Desktop/玩玩编程/生产教学文档/simple-demo/hVGcxc/work/samples/frame_3600.jpg",
+      "caption": "步骤7截图",
+      "result": {
+        "block_id": "doxcnH86bXj3oPt1rWgaJM4kAve",
+        "document_id": "XIBzd4EFYoxdUKxoZ8wcLfDXnwO",
+        "file_token": "S42IbEq9NonJHCxWYPxceobanGu",
+        "type": "image"
+      }
+    },
+    {
+      "path": "/Users/shihui/Desktop/玩玩编程/生产教学文档/simple-demo/hVGcxc/work/samples/frame_4200.jpg",
+      "caption": "步骤8截图",
+      "result": {
+        "block_id": "doxcnAlqEjkAR6aOR8r7DzgFK4d",
+        "document_id": "XIBzd4EFYoxdUKxoZ8wcLfDXnwO",
+        "file_token": "Ir4HbhffAon5Cpx54Hccde3nnRc",
+        "type": "image"
+      }
+    }
+  ]
+}

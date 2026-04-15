@@ -65,6 +65,22 @@ Only after the first two stages work reliably, add:
 
 ## Workflow
 
+### 0. Create an isolated output folder per video
+
+Before generating any assets, create one dedicated folder for the current video run.
+
+Rules:
+
+- Use one folder per video link or source
+- Name the folder from the actual course title or the clearest video topic you can verify
+- Put both final deliverables and temporary work products inside that folder
+- Prefer a structure like:
+  - `simple-demo/<video-title>/`
+  - `simple-demo/<video-title>/work/`
+- Do not scatter intermediate files across shared top-level directories when they belong to one specific video
+
+This keeps cleanup simple: after the user confirms the final teaching document is usable, they can delete that single folder to reclaim disk space.
+
 ### 1. Confirm the usable source
 
 Prefer the richest source available:
@@ -161,6 +177,17 @@ Produce two outputs when possible:
 
 The student-facing version may reorder sections, merge repetition, remove detours, and add headings, but must not invent hidden steps.
 
+### 9. Choose heading style from course type
+
+Do not force all courses into the same heading pattern.
+
+- If the lesson is primarily a lecture, concept explanation, methodology walkthrough, or case analysis, do not use `步骤1` / `步骤2` style headings.
+- For lecture-style sections, use Chinese major headings such as `一、` `二、` `三、`.
+- If a lecture-style major heading needs subpoints, use `1、` `2、` `3、` under that heading.
+- If the lesson is primarily an operation demo or software walkthrough, `步骤1` / `步骤2` style headings are still acceptable.
+- If the lesson is mixed, keep concept sections in `一、二、三、` style and reserve `步骤1` / `步骤2` for the true operation part only.
+- Never label a pure concept page as a numbered operation step just to make the document look uniform.
+
 ## Output Contract
 
 For Stage 1, default to five deliverables:
@@ -170,6 +197,11 @@ For Stage 1, default to five deliverables:
 3. Screenshot and click-mark suggestions
 4. A reconstructed first draft
 5. A review list of uncertain items
+
+By default, store all deliverables for the same video under one isolated folder:
+
+- final Markdown docs at `simple-demo/<video-title>/`
+- transcript, samples, intermediate media, and publish logs at `simple-demo/<video-title>/work/`
 
 For Stage 2 and above, the reconstructed document should separate:
 

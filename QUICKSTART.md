@@ -50,6 +50,8 @@ video-teaching-doc-skill/SKILL.md
 
 ## 4. 看完整说明
 
+- 可直接复制给 AI 的对话模板：
+  [AI_CHAT_GUIDE.md](AI_CHAT_GUIDE.md)
 - 通用说明：[UNIVERSAL_SETUP.md](UNIVERSAL_SETUP.md)
 - 团队说明：[TEAM_SETUP.md](TEAM_SETUP.md)
 - 项目入口：[README.md](README.md)

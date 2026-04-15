@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import base64
 import json
+import math
 import subprocess
 import time
 from pathlib import Path
@@ -13,11 +14,14 @@ PAGE_MATCH = "st-live/playback?param=cqak6s"
 
 
 def run_osascript(script: str) -> str:
+    lines = [line for line in script.strip().splitlines() if line.strip()]
+    cmd = ["osascript"]
+    for line in lines:
+        cmd.extend(["-e", line])
     result = subprocess.run(
-        ["osascript", "-"],
-        input=script,
-        text=True,
+        cmd,
         capture_output=True,
+        text=True,
         check=True,
     )
     return result.stdout.strip()
@@ -45,7 +49,7 @@ end tell
     return run_osascript(script)
 
 
-def set_time(target: float) -> dict:
+def set_time(target: float, url_match: str = PAGE_MATCH) -> dict:
     return json.loads(
         chrome_js(
             f"""
@@ -62,12 +66,13 @@ def set_time(target: float) -> dict:
     paused:v.paused
   }});
 }})()
-"""
+""",
+            url_match=url_match,
         )
     )
 
 
-def get_state() -> dict:
+def get_state(url_match: str = PAGE_MATCH) -> dict:
     return json.loads(
         chrome_js(
             """
@@ -84,12 +89,13 @@ def get_state() -> dict:
     videoHeight:v.videoHeight
   });
 })()
-"""
+""",
+            url_match=url_match,
         )
     )
 
 
-def capture_data_url() -> str:
+def prepare_data_url(url_match: str = PAGE_MATCH) -> int:
     result = json.loads(
         chrome_js(
             """
@@ -101,24 +107,45 @@ def capture_data_url() -> str:
     c.width = v.videoWidth;
     c.height = v.videoHeight;
     c.getContext('2d').drawImage(v, 0, 0, c.width, c.height);
-    return JSON.stringify({ok:true, data:c.toDataURL('image/jpeg', 0.92)});
+    window.__codexFrameDataUrl = c.toDataURL('image/jpeg', 0.92);
+    return JSON.stringify({ok:true, length:window.__codexFrameDataUrl.length});
   } catch (e) {
     return JSON.stringify({ok:false, error:String(e)});
   }
 })()
-"""
+""",
+            url_match=url_match,
         )
     )
     if not result.get("ok"):
         raise RuntimeError(result)
-    return str(result["data"])
+    return int(result["length"])
 
 
-def wait_until_ready(target: float, tolerance: float, max_wait: float) -> dict:
+def read_data_url_chunks(length: int, url_match: str = PAGE_MATCH, chunk_size: int = 120000) -> str:
+    parts: list[str] = []
+    total = int(math.ceil(length / float(chunk_size)))
+    for index in range(total):
+        start = index * chunk_size
+        end = min(length, start + chunk_size)
+        chunk = chrome_js(
+            f"""
+(() => {{
+  const data = window.__codexFrameDataUrl || '';
+  return data.slice({start}, {end});
+}})()
+""",
+            url_match=url_match,
+        )
+        parts.append(chunk)
+    return "".join(parts)
+
+
+def wait_until_ready(target: float, tolerance: float, max_wait: float, url_match: str = PAGE_MATCH) -> dict:
     deadline = time.time() + max_wait
     last = {}
     while time.time() < deadline:
-        last = get_state()
+        last = get_state(url_match=url_match)
         if last.get("ok") and last.get("readyState", 0) >= 2 and abs(last.get("currentTime", 0.0) - target) <= tolerance:
             return last
         time.sleep(0.35)
@@ -135,19 +162,35 @@ def load_windows(path: Path) -> list[dict]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def capture_single(target: float, output: Path, tolerance: float, settle_wait: float, fast_seek_wait: float) -> None:
-    info = set_time(target)
+def capture_single(
+    target: float,
+    output: Path,
+    tolerance: float,
+    settle_wait: float,
+    fast_seek_wait: float,
+    url_match: str = PAGE_MATCH,
+) -> None:
+    info = set_time(target, url_match=url_match)
     if not info.get("ok"):
         raise RuntimeError(info)
     if fast_seek_wait > 0:
         time.sleep(fast_seek_wait)
     else:
-        wait_until_ready(target=target, tolerance=tolerance, max_wait=8.0)
+        wait_until_ready(target=target, tolerance=tolerance, max_wait=8.0, url_match=url_match)
     time.sleep(settle_wait)
-    save_data_url(capture_data_url(), output)
+    length = prepare_data_url(url_match=url_match)
+    save_data_url(read_data_url_chunks(length=length, url_match=url_match), output)
 
 
-def capture_windows(windows: list[dict], fps: float, output_root: Path, tolerance: float, settle_wait: float, fast_seek_wait: float) -> dict:
+def capture_windows(
+    windows: list[dict],
+    fps: float,
+    output_root: Path,
+    tolerance: float,
+    settle_wait: float,
+    fast_seek_wait: float,
+    url_match: str = PAGE_MATCH,
+) -> dict:
     manifest: list[dict] = []
     interval = 1.0 / fps
     for window in windows:
@@ -166,6 +209,7 @@ def capture_windows(windows: list[dict], fps: float, output_root: Path, toleranc
                 tolerance=tolerance,
                 settle_wait=settle_wait,
                 fast_seek_wait=fast_seek_wait,
+                url_match=url_match,
             )
             frame_paths.append(str(out))
             t += interval
@@ -193,6 +237,7 @@ def main() -> None:
     parser.add_argument("--tolerance", type=float, default=0.25)
     parser.add_argument("--settle-wait", type=float, default=0.25)
     parser.add_argument("--fast-seek-wait", type=float, default=0.0, help="If > 0, skip seek polling and sleep this many seconds before capture")
+    parser.add_argument("--url-match", default=PAGE_MATCH, help="Substring used to find the target Chrome playback tab")
     args = parser.parse_args()
 
     if args.time is not None:
@@ -204,6 +249,7 @@ def main() -> None:
             tolerance=float(args.tolerance),
             settle_wait=float(args.settle_wait),
             fast_seek_wait=float(args.fast_seek_wait),
+            url_match=str(args.url_match),
         )
         print(args.output)
         return
@@ -218,6 +264,7 @@ def main() -> None:
             tolerance=float(args.tolerance),
             settle_wait=float(args.settle_wait),
             fast_seek_wait=float(args.fast_seek_wait),
+            url_match=str(args.url_match),
         )
         Path(args.manifest).write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
         print(args.manifest)

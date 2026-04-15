@@ -2,23 +2,26 @@
 __pycache__/
 *.pyc
 
-# Raw audio intermediates
-simple-demo/transcript-first-30min/audio_30min.wav
-simple-demo/transcript-first-30min/chunk_*.wav
-trial-run-v2/audio.wav
+# Audio / stream intermediates
+*.wav
+*.m3u8
+*.key
+*.enc
+*.dec
+
+# Per-run transient logs and probes
+simple-demo/**/work/probe_*
+simple-demo/**/work/latest_stream_url.txt
+simple-demo/**/work/source_context.json
+simple-demo/**/work/license_url.txt
+simple-demo/**/work/video_stream_url.txt
+simple-demo/**/work/resource_urls.json
 
 # Dense capture intermediates
-simple-demo/transcript-first-30min/browser_dense_frames/
-simple-demo/transcript-first-30min/browser_dense_annotated_first1/
-simple-demo/transcript-first-30min/browser_dense_annotated_first2/
-simple-demo/transcript-first-30min/browser_dense_annotated_first4/
-trial-run-v2/frame_probe_1200/
-
-# Streaming and local decryption artifacts
-trial-run/custom_hls.m3u8
-trial-run/source_context.json
-trial-run-v2/latest_stream_url.txt
-trial-run-v2/local.key
-trial-run-v2/current_custom_hls.m3u8
-trial-run-v2/seg0.enc
-trial-run-v2/seg0.dec
+simple-demo/**/browser_dense_frames/
+simple-demo/**/browser_dense_annotated/
+simple-demo/**/browser_dense_annotated_first1/
+simple-demo/**/browser_dense_annotated_first2/
+simple-demo/**/browser_dense_annotated_first4/
+simple-demo/**/legacy/trial-run/
+simple-demo/**/legacy/trial-run-v2/
