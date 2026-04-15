@@ -2,17 +2,6 @@
 
 这个项目用来把课程回放、录屏演示视频整理成可交付的教学文档，并支持发布到飞书云文档。
 
-## 当前可用产物
-
-- 红框修正版飞书文档：
-  [微信小程序课程前30分钟教学文档 红框修正版](https://www.feishu.cn/docx/KQi5d2EZgob39nxmpblcjnFBntf)
-- 当前教学文档草稿：
-  [前30分钟-教学文档草稿.md](/Users/shihui/Desktop/玩玩编程/生产教学文档/simple-demo/transcript-first-30min/前30分钟-教学文档草稿.md)
-- 当前完整教学文档：
-  [前30分钟-完整教学文档-v2.md](/Users/shihui/Desktop/玩玩编程/生产教学文档/simple-demo/transcript-first-30min/前30分钟-完整教学文档-v2.md)
-- 转写整理稿：
-  [前30分钟-转写整理稿.md](/Users/shihui/Desktop/玩玩编程/生产教学文档/simple-demo/transcript-first-30min/前30分钟-转写整理稿.md)
-
 ## 快速开始
 
 - 30 秒上手：
@@ -30,12 +19,6 @@
 - 给同事的团队说明：
   [TEAM_SETUP.md](TEAM_SETUP.md)
 
-## 飞书发布结果
-
-- 红框修正版发布结果：
-  [lark_publish_redbox_fixed_result.json](/Users/shihui/Desktop/玩玩编程/生产教学文档/trial-run-v2/lark_publish_redbox_fixed_result.json)
-- 红框修正版图片清单：
-  [lark_publish_redbox_fixed_manifest.json](/Users/shihui/Desktop/玩玩编程/生产教学文档/trial-run-v2/lark_publish_redbox_fixed_manifest.json)
 
 ## 目录说明
 
