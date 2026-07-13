@@ -33,27 +33,29 @@
       .side-nav { position:sticky; top:88px; padding:16px; border:2px solid var(--night); border-radius:20px; background:var(--paper); box-shadow:var(--shadow); }
       .side-nav strong { display:block; margin-bottom:12px; font-size:13px; } .side-nav a { display:flex; gap:9px; align-items:center; padding:10px; border-radius:10px; color:var(--muted); font-size:12px; font-weight:800; } .side-nav a:hover { background:#e9f1df; color:var(--ink); }
       .nav-num { display:grid; width:22px; height:22px; flex:0 0 auto; place-items:center; border-radius:7px; background:var(--night); color:var(--lime); font-size:10px; }
-      .content { display:grid; gap:18px; } .lesson-card { padding:clamp(20px,4vw,34px); border:2px solid var(--night); border-radius:24px 24px 24px 7px; background:var(--paper); box-shadow:var(--shadow); scroll-margin-top:92px; }
+      .content { min-width:0; display:grid; gap:18px; } .lesson-card { min-width:0; padding:clamp(20px,4vw,34px); border:2px solid var(--night); border-radius:24px 24px 24px 7px; background:var(--paper); box-shadow:var(--shadow); scroll-margin-top:92px; }
       .section-tag { display:inline-block; margin-bottom:12px; color:#297683; font-size:11px; font-weight:1000; letter-spacing:.12em; } .lesson-card h2 { margin-bottom:12px; font-size:clamp(27px,4vw,40px); line-height:1.12; letter-spacing:-.035em; }
       .lesson-card>p,.copy p,.copy li { color:var(--muted); line-height:1.75; }
       .compare { display:grid; grid-template-columns:1fr auto 1fr; gap:12px; align-items:stretch; margin:20px 0; } .compare-card { padding:18px; border:2px solid var(--line); border-radius:16px; background:#f3f0e7; } .compare-card.now { background:#eff8d8; } .compare-card strong { display:block; margin-bottom:8px; } .compare-card p { margin:0; color:var(--muted); line-height:1.65; } .compare-arrow { align-self:center; font-size:28px; font-weight:1000; }
       .shot-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:18px; } .shot { overflow:hidden; border:2px solid var(--night); border-radius:15px; background:#eef0f0; } .shot img { width:100%; height:100%; max-height:600px; object-fit:contain; } .shot figcaption { padding:9px 12px; background:var(--night); color:#dbe3e9; font-size:11px; }
-      .product-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:18px; } .product { padding:19px; border:2px solid var(--line); border-radius:17px; background:#fff; } .product.wide { grid-column:1 / -1; } .product h3 { margin-bottom:8px; } .product p,.product li { color:var(--muted); font-size:13px; line-height:1.65; } .product ul { margin-bottom:0; padding-left:20px; }
+      .examples-title { margin:22px 0 -6px; }
+      .product-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:18px; } .product { padding:19px; border:2px solid var(--line); border-radius:17px; background:#fff; } .product.wide { grid-column:1 / -1; } .product h3 { display:flex; gap:10px; align-items:center; margin-bottom:8px; } .product-num { display:grid; width:30px; height:30px; flex:0 0 auto; place-items:center; border-radius:9px; background:var(--night); color:var(--lime); font-size:12px; } .product p,.product li { color:var(--muted); font-size:13px; line-height:1.65; } .product ul { margin-bottom:0; padding-left:20px; }
       .tip { margin-top:16px; padding:15px 17px; border:2px solid #675529; border-radius:14px; background:#fff0bd; color:#634719; font-weight:850; line-height:1.65; }
       .duo { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:18px; } .concept { padding:20px; border:2px solid var(--line); border-radius:17px; background:#fff; } .concept.dynamic,.concept.backend { background:#eef8d8; } .concept h3 { margin-bottom:9px; } .concept li { color:var(--muted); line-height:1.7; }
       .flow { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:18px; } .flow-step { position:relative; padding:18px; border:2px solid var(--line); border-radius:15px; background:#f1f4f2; } .flow-step b { display:block; margin-bottom:7px; color:#247180; } .flow-step p { margin:0; color:var(--muted); font-size:13px; line-height:1.6; }
-      .lab { margin-top:25px; padding:20px; border:2px solid var(--night); border-radius:18px; background:var(--night-2); color:#f7f6ef; } .lab-head { display:flex; gap:12px; align-items:start; justify-content:space-between; margin-bottom:15px; } .lab-count { flex:0 0 auto; padding:5px 8px; border-radius:999px; background:var(--lime); color:var(--night); font-size:10px; font-weight:1000; } .lab h3 { margin-bottom:5px; font-size:18px; } .lab p { margin-bottom:0; color:#acbbc9; font-size:13px; line-height:1.6; }
-      .action,.queue-card,.match-item,.match-type,.quiz-option { border:2px solid var(--night); cursor:pointer; font-weight:900; transition:transform 140ms ease,box-shadow 140ms ease,background 140ms ease; } .action { display:inline-flex; min-height:44px; align-items:center; justify-content:center; padding:9px 14px; border-radius:11px; background:var(--lime); box-shadow:3px 3px 0 #617085; color:var(--night); } .action.secondary { background:#fff; }
+      .lab { min-width:0; margin-top:25px; padding:20px; border:2px solid var(--night); border-radius:18px; background:var(--night-2); color:#f7f6ef; } .lab-head { display:flex; gap:12px; align-items:start; justify-content:space-between; margin-bottom:15px; } .lab-count { flex:0 0 auto; padding:5px 8px; border-radius:999px; background:var(--lime); color:var(--night); font-size:10px; font-weight:1000; } .lab h3 { margin-bottom:5px; font-size:18px; } .lab p { margin-bottom:0; color:#acbbc9; font-size:13px; line-height:1.6; }
+      .action,.queue-card,.match-item,.match-type,.quiz-option { border:2px solid var(--night); cursor:pointer; font-weight:900; transition:transform 140ms ease,box-shadow 140ms ease,background 140ms ease; } .action { display:inline-flex; min-height:44px; align-items:center; justify-content:center; padding:9px 14px; border-radius:11px; background:var(--lime); box-shadow:3px 3px 0 #617085; color:var(--night); } .action.secondary { background:#fff; } .action.ready { animation:check-nudge 850ms ease-in-out infinite; } @keyframes check-nudge { 0%,100% { box-shadow:3px 3px 0 #617085,0 0 0 0 rgba(191,244,75,.45); } 50% { box-shadow:3px 3px 0 #617085,0 0 0 7px rgba(191,244,75,0); } }
       .lab-actions { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:14px; } .feedback { min-height:40px; margin-top:13px; padding:10px 12px; border-left:4px solid #6e7c8c; background:rgba(255,255,255,.06); color:#d9e3ea; font-size:13px; line-height:1.6; } .feedback.good { border-color:var(--lime); } .feedback.try { border-color:var(--orange); }
       .queue-source,.queue-target { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; } .queue-target { min-height:72px; margin:12px 0; padding:9px; border:2px dashed #607185; border-radius:12px; } .queue-target:empty::after { grid-column:1/-1; align-self:center; color:#8393a2; content:"按正确顺序点击卡片"; font-size:12px; text-align:center; }
-      .queue-card { position:relative; padding:11px 11px 11px 36px; border-color:#6d7c8e; border-radius:10px; background:#f3f5f5; color:var(--ink); text-align:left; } .queue-card::before { position:absolute; left:11px; content:attr(data-order); color:#768597; } .queue-target .queue-card { border-color:var(--lime); background:rgba(191,244,75,.16); color:#fff; }
-      .match-items { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; } .match-item { min-height:100px; padding:11px; border-color:#6d7c8e; border-radius:11px; background:#f4f5f2; color:var(--ink); text-align:left; } .match-item.active { border-color:var(--lime); box-shadow:0 0 0 3px rgba(191,244,75,.18); } .match-item span { display:block; margin-top:8px; color:#38757b; font-size:11px; }
-      .match-types { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; } .match-type { padding:9px 11px; border-color:#66758a; border-radius:999px; background:transparent; color:#fff; }
-      .quiz-list { display:grid; gap:13px; } .quiz-row { padding:13px; border:1.5px solid #596b80; border-radius:12px; } .quiz-row strong { display:block; margin-bottom:9px; } .quiz-options { display:flex; flex-wrap:wrap; gap:8px; } .quiz-option { padding:8px 11px; border-color:#66758a; border-radius:9px; background:transparent; color:#fff; } .quiz-option.selected { border-color:var(--lime); background:rgba(191,244,75,.14); color:var(--lime); }
+      .queue-card { position:relative; padding:11px 11px 11px 36px; border-color:#6d7c8e; border-radius:10px; background:#fff; color:var(--ink); text-align:left; } .queue-card::before { position:absolute; left:11px; content:attr(data-order); color:#768597; } .queue-target .queue-card { border-color:var(--cyan); background:#fff; color:var(--ink); }
+      .match-board { position:relative; padding:2px 0; } .match-lines { position:absolute; inset:0; z-index:0; width:100%; height:100%; overflow:visible; pointer-events:none; } .match-line { fill:none; stroke:var(--cyan); stroke-width:4; stroke-linecap:round; opacity:.9; } .match-line.correct { stroke:#93c72e; } .match-line.wrong { stroke:var(--orange); }
+      .match-items,.match-types { position:relative; z-index:1; display:grid; grid-template-columns:repeat(5,1fr); gap:8px; } .match-types { margin-top:86px; } .match-item,.match-type { min-height:92px; padding:11px; border-color:#6d7c8e; border-radius:11px; background:#fff; color:var(--ink); text-align:center; } .match-item { text-align:left; } .match-item.active { border-color:var(--cyan); box-shadow:0 0 0 3px rgba(78,215,221,.2); } .match-item span { display:block; margin-top:8px; color:#38757b; font-size:11px; } .match-type { display:grid; place-items:center; }
+      .quiz-list { display:grid; gap:13px; } .quiz-row { padding:13px; border:1.5px solid #596b80; border-radius:12px; } .quiz-row strong { display:block; margin-bottom:9px; } .quiz-options { display:flex; flex-wrap:wrap; gap:8px; } .quiz-option { padding:8px 11px; border-color:#66758a; border-radius:9px; background:#fff; color:var(--ink); } .quiz-option.selected { border-color:var(--cyan); box-shadow:0 0 0 3px rgba(78,215,221,.2); }
+      .queue-card.correct,.match-item.correct,.match-type.correct,.quiz-option.correct { border-color:#7cab20 !important; background:#dff6aa !important; color:var(--ink) !important; } .queue-card.wrong,.match-item.wrong,.match-type.wrong,.quiz-option.wrong { border-color:var(--orange) !important; background:#ffd2c3 !important; color:var(--ink) !important; }
       .finish { padding:27px; border:2px solid var(--night); border-radius:22px; background:var(--night); color:#fff; text-align:center; } .finish-badge { display:grid; width:74px; height:74px; margin:0 auto 14px; place-items:center; border:2px solid var(--lime); border-radius:50%; color:var(--lime); font-size:34px; } .finish h2 { margin-bottom:8px; } .finish p { max-width:650px; margin:0 auto 18px; color:#aebdcc; line-height:1.7; } .finish-actions { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
       .toast { position:fixed; right:18px; bottom:18px; z-index:50; max-width:320px; padding:12px 15px; border:2px solid var(--night); border-radius:12px; background:var(--lime); box-shadow:4px 4px 0 var(--night); font-size:13px; font-weight:900; transform:translateY(130%); transition:transform 220ms ease; } .toast.show { transform:translateY(0); }
-      @media(max-width:950px) { .hero{grid-template-columns:1fr}.layout{grid-template-columns:1fr}.side-nav{position:static;display:flex;overflow-x:auto;gap:4px}.side-nav strong{display:none}.side-nav a{flex:0 0 auto}.match-items{grid-template-columns:repeat(3,1fr)} }
-      @media(max-width:620px) { .shell{width:min(100% - 20px,1380px)}.topbar{grid-template-columns:1fr auto}.stage-pill{display:none}.signal{min-width:120px}.hero{padding:26px 20px}h1{font-size:43px}.compare,.shot-grid,.product-grid,.duo,.flow,.queue-source,.queue-target,.match-items{grid-template-columns:1fr}.compare-arrow{transform:rotate(90deg);justify-self:center}.product.wide{grid-column:auto}.lesson-card{padding:20px 16px} }
+      @media(max-width:950px) { .hero{grid-template-columns:1fr}.layout{grid-template-columns:1fr}.side-nav{position:static;display:flex;overflow-x:auto;gap:4px}.side-nav strong{display:none}.side-nav a{flex:0 0 auto} }
+      @media(max-width:620px) { .shell{width:min(100% - 20px,1380px)}.topbar{grid-template-columns:1fr auto}.stage-pill{display:none}.signal{min-width:120px}.hero{padding:26px 20px}h1{font-size:43px}.compare,.shot-grid,.product-grid,.duo,.flow,.queue-source,.queue-target{grid-template-columns:1fr}.compare-arrow{transform:rotate(90deg);justify-self:center}.product.wide{grid-column:auto}.lesson-card{padding:20px 16px}.match-board{overflow-x:auto;margin-inline:-5px;padding:5px}.match-items,.match-types{min-width:600px;grid-template-columns:repeat(5,1fr)}.match-types{margin-top:70px}.match-item,.match-type{min-height:86px} }
       @media(prefers-reduced-motion:reduce) { *,*::before,*::after{scroll-behavior:auto!important;transition:none!important} }
     </style>
   </head>
@@ -87,15 +89,16 @@
             <section class="lesson-card" id="products">
               <span class="section-tag">02 · PRODUCT TYPES</span><h2>常见产品形态</h2><p>生活中的软件像不同类型的“店铺”，会根据使用场景选择不同形态。</p>
               <div class="product-grid">
-                <article class="product wide"><h3>网页 Webpage</h3><p>运行在浏览器里的程序界面。输入网址即可打开，不需要安装。</p><ul><li>浏览器把背后的代码“翻译”成文字、图片和按钮。</li><li>核心特点：即开即看，关闭就走。</li></ul><figure class="shot"><img src="lesson2-assets/webpage-example.png" alt="百度网页示例" /><figcaption>百度：在浏览器中输入网址后打开的网页。</figcaption></figure></article>
-                <article class="product"><h3>手机原生应用 Native App</h3><p>从 App Store 或安卓应用市场下载并安装。</p><ul><li>能更顺畅调用摄像头、麦克风、GPS。</li><li>例子：微信、抖音、支付宝。</li></ul></article>
-                <article class="product"><h3>桌面应用 Desktop App</h3><p>安装在 Windows 或 Mac 电脑上的软件。</p><ul><li>性能最强，适合复杂创作和大型任务。</li><li>例子：Word、飞书、PS、PR、Steam 游戏。</li></ul></article>
-                <article class="product"><h3>Web App</h3><p>看起来像 App，实际仍通过浏览器打开，不用安装。</p><ul><li>兼顾网页免安装和 App 的流畅交互。</li><li>例子：腾讯文档、Figma、在线版 PS、网页点单。</li></ul></article>
-                <article class="product"><h3>小程序 Mini Program</h3><p>藏在微信、支付宝、抖音等“超级 App”里的微型应用。</p><ul><li>用完即走，不占太多存储。</li><li>例子：喜茶点单、微信小游戏、美团微信端。</li></ul></article>
+                <article class="product wide"><h3><span class="product-num">01</span>网页 Webpage</h3><p>运行在浏览器里的程序界面。输入网址即可打开，不需要安装。</p><ul><li>浏览器把背后的代码“翻译”成文字、图片和按钮。</li><li>核心特点：即开即看，关闭就走。</li></ul></article>
+                <article class="product"><h3><span class="product-num">02</span>手机原生应用 Native App</h3><p>从 App Store 或安卓应用市场下载并安装。</p><ul><li>能更顺畅调用摄像头、麦克风、GPS。</li><li>例子：微信、抖音、支付宝。</li></ul></article>
+                <article class="product"><h3><span class="product-num">03</span>桌面应用 Desktop App</h3><p>安装在 Windows 或 Mac 电脑上的软件。</p><ul><li>性能最强，适合复杂创作和大型任务。</li><li>例子：Word、飞书、PS、PR、Steam 游戏。</li></ul></article>
+                <article class="product"><h3><span class="product-num">04</span>Web App</h3><p>看起来像 App，实际仍通过浏览器打开，不用安装。</p><ul><li>兼顾网页免安装和 App 的流畅交互。</li><li>例子：腾讯文档、Figma、在线版 PS、网页点单。</li></ul></article>
+                <article class="product"><h3><span class="product-num">05</span>小程序 Mini Program</h3><p>藏在微信、支付宝、抖音等“超级 App”里的微型应用。</p><ul><li>用完即走，不占太多存储。</li><li>例子：喜茶点单、微信小游戏、美团微信端。</li></ul></article>
               </div>
-              <figure class="shot"><img src="lesson2-assets/desktop-apps.png" alt="电脑中安装的桌面应用示例" /><figcaption>桌面应用：需要安装到电脑系统中，图中包括 Chrome、飞书、微信、Codex 等。</figcaption></figure>
+              <h3 class="examples-title">示例：</h3>
+              <div class="shot-grid"><figure class="shot"><img src="lesson2-assets/webpage-example.png" alt="百度网页示例" /><figcaption>百度：在浏览器中输入网址后打开的网页。</figcaption></figure><figure class="shot"><img src="lesson2-assets/desktop-apps.png" alt="电脑中安装的桌面应用示例" /><figcaption>桌面应用：需要安装到电脑系统中，图中包括 Chrome、飞书、微信、Codex 等。</figcaption></figure></div>
               <div class="tip">💻 初学者不用一上来就挑战 App、小程序或复杂 Web App。里面的坑很多，先从网页开始！</div>
-              <div class="lab" data-lab="match"><div class="lab-head"><div><h3>互动 2 · 给产品找到正确身份</h3><p>先点一个例子，再点它所属的产品形态。</p></div><span class="lab-count">+1 信号</span></div><div class="match-items" id="matchItems"><button class="match-item" type="button" data-answer="webpage">百度官网<span>尚未分类</span></button><button class="match-item" type="button" data-answer="native">微信手机端<span>尚未分类</span></button><button class="match-item" type="button" data-answer="desktop">Photoshop 电脑版<span>尚未分类</span></button><button class="match-item" type="button" data-answer="webapp">腾讯文档网页版<span>尚未分类</span></button><button class="match-item" type="button" data-answer="mini">喜茶微信点单<span>尚未分类</span></button></div><div class="match-types"><button class="match-type" type="button" data-type="webpage">网页</button><button class="match-type" type="button" data-type="native">手机原生 App</button><button class="match-type" type="button" data-type="desktop">桌面应用</button><button class="match-type" type="button" data-type="webapp">Web App</button><button class="match-type" type="button" data-type="mini">小程序</button></div><div class="lab-actions"><button class="action" type="button" id="checkMatch">检查匹配</button></div><div class="feedback" id="matchFeedback">先选择一个例子开始匹配。</div></div>
+              <div class="lab" data-lab="match"><div class="lab-head"><div><h3>互动 2 · 给产品找到正确身份</h3><p>先点上方的产品例子，再点下方的产品形态，完成上下连线。</p></div><span class="lab-count">+1 信号</span></div><div class="match-board" id="matchBoard"><svg class="match-lines" id="matchLines" aria-hidden="true"></svg><div class="match-items" id="matchItems"><button class="match-item" type="button" data-answer="webpage">百度官网<span>尚未连接</span></button><button class="match-item" type="button" data-answer="native">微信手机端<span>尚未连接</span></button><button class="match-item" type="button" data-answer="desktop">Photoshop 电脑版<span>尚未连接</span></button><button class="match-item" type="button" data-answer="webapp">腾讯文档网页版<span>尚未连接</span></button><button class="match-item" type="button" data-answer="mini">喜茶微信点单<span>尚未连接</span></button></div><div class="match-types" id="matchTypes"><button class="match-type" type="button" data-type="webpage">01 · 网页</button><button class="match-type" type="button" data-type="native">02 · 手机原生 App</button><button class="match-type" type="button" data-type="desktop">03 · 桌面应用</button><button class="match-type" type="button" data-type="webapp">04 · Web App</button><button class="match-type" type="button" data-type="mini">05 · 小程序</button></div></div><div class="lab-actions"><button class="action" type="button" id="checkMatch">检查匹配</button></div><div class="feedback" id="matchFeedback">先选择一个例子开始匹配。</div></div>
             </section>
 
             <section class="lesson-card" id="static">
@@ -110,10 +113,10 @@
               <h3>一次点赞的完整流程</h3><div class="flow"><article class="flow-step"><b>1 · 前端响应</b><p>用户点击心形按钮，前端立刻把空心图标变成红心，并告诉后端谁点了赞。</p></article><article class="flow-step"><b>2 · 后端记录</b><p>服务器收到信息，在数据库里给对应用户记录“点赞 +1”。</p></article><article class="flow-step"><b>3 · 闭环展示</b><p>后端返回记录成功，下次打开时，前端把最新点赞结果展示出来。</p></article></div>
               <div class="tip">✨ 如果一个人既能搞定前端大堂，又能处理后端厨房，就是“全栈工程师 Full Stack”，相当于自己开了一家店。</div>
               <div class="lab" data-lab="final"><div class="lab-head"><div><h3>互动 3 · 最终概念检查</h3><p>完成 4 个情境判断，一次检查静态、动态、前端和后端。</p></div><span class="lab-count">+1 信号</span></div><div class="quiz-list">
-                <div class="quiz-row" data-answer="static"><strong>公司宣传页，所有人打开都看到同一内容</strong><div class="quiz-options"><button class="quiz-option" type="button" data-value="static">静态</button><button class="quiz-option" type="button" data-value="dynamic">动态</button></div></div>
-                <div class="quiz-row" data-answer="dynamic"><strong>手机银行登录后显示每个人自己的余额</strong><div class="quiz-options"><button class="quiz-option" type="button" data-value="static">静态</button><button class="quiz-option" type="button" data-value="dynamic">动态</button></div></div>
-                <div class="quiz-row" data-answer="frontend"><strong>点击点赞按钮后，空心图标立刻变成红心</strong><div class="quiz-options"><button class="quiz-option" type="button" data-value="frontend">前端</button><button class="quiz-option" type="button" data-value="backend">后端</button></div></div>
-                <div class="quiz-row" data-answer="backend"><strong>把“张三给李四点赞”记录进数据库</strong><div class="quiz-options"><button class="quiz-option" type="button" data-value="frontend">前端</button><button class="quiz-option" type="button" data-value="backend">后端</button></div></div>
+                <div class="quiz-row" data-answer="static"><strong>第 1 题 · 公司宣传页，所有人打开都看到同一内容</strong><div class="quiz-options"><button class="quiz-option" type="button" data-value="static">静态</button><button class="quiz-option" type="button" data-value="dynamic">动态</button></div></div>
+                <div class="quiz-row" data-answer="dynamic"><strong>第 2 题 · 手机银行登录后显示每个人自己的余额</strong><div class="quiz-options"><button class="quiz-option" type="button" data-value="static">静态</button><button class="quiz-option" type="button" data-value="dynamic">动态</button></div></div>
+                <div class="quiz-row" data-answer="frontend"><strong>第 3 题 · 点击点赞按钮后，空心图标立刻变成红心</strong><div class="quiz-options"><button class="quiz-option" type="button" data-value="frontend">前端</button><button class="quiz-option" type="button" data-value="backend">后端</button></div></div>
+                <div class="quiz-row" data-answer="backend"><strong>第 4 题 · 把“张三给李四点赞”记录进数据库</strong><div class="quiz-options"><button class="quiz-option" type="button" data-value="frontend">前端</button><button class="quiz-option" type="button" data-value="backend">后端</button></div></div>
               </div><div class="lab-actions"><button class="action" type="button" id="checkFinal">检查答案</button></div><div class="feedback" id="finalFeedback">每个情境选择一个答案。</div></div>
             </section>
 
@@ -124,30 +127,206 @@
     </div>
     <div class="toast" id="toast" role="status"></div>
     <script>
-      const STORAGE_KEY="newbie-village-vibe-basics-v1";
-      const LAB_KEY="newbie-village-vibe-basics-labs-v1";
-      const labs=new Set(JSON.parse(localStorage.getItem(LAB_KEY)||"[]"));
-      const signalText=document.querySelector("#signalText"); const signalFill=document.querySelector("#signalFill"); const toast=document.querySelector("#toast");
-      function saveLabs(){localStorage.setItem(LAB_KEY,JSON.stringify([...labs]));signalText.textContent=`${labs.size} / 3`;signalFill.style.width=`${labs.size/3*100}%`;document.querySelectorAll(".lab").forEach(lab=>{if(labs.has(lab.dataset.lab))lab.querySelector(".lab-count").textContent="已完成 ✓";});}
-      function completeLab(name){labs.add(name);saveLabs();} function showToast(text){toast.textContent=text;toast.classList.add("show");setTimeout(()=>toast.classList.remove("show"),2200);} saveLabs();
+      const STORAGE_KEY = "newbie-village-vibe-basics-v1";
+      const LAB_KEY = "newbie-village-vibe-basics-labs-v1";
+      const labs = new Set(JSON.parse(localStorage.getItem(LAB_KEY) || "[]"));
+      const signalText = document.querySelector("#signalText");
+      const signalFill = document.querySelector("#signalFill");
+      const toast = document.querySelector("#toast");
+      function saveLabs() {
+        localStorage.setItem(LAB_KEY, JSON.stringify([...labs]));
+        signalText.textContent = `${labs.size} / 3`;
+        signalFill.style.width = `${labs.size / 3 * 100}%`;
+        document.querySelectorAll(".lab").forEach((lab) => {
+          if (labs.has(lab.dataset.lab)) lab.querySelector(".lab-count").textContent = "已完成 ✓";
+        });
+      }
+      function completeLab(name) { labs.add(name); saveLabs(); }
+      function showToast(text) { toast.textContent = text; toast.classList.add("show"); setTimeout(() => toast.classList.remove("show"), 2200); }
+      function resetFeedback(element, message) { element.className = "feedback"; element.textContent = message; }
+      function armCheck(button, ready) { button.classList.toggle("ready", ready); }
+      saveLabs();
 
-      const flowSource=document.querySelector("#flowSource"),flowTarget=document.querySelector("#flowTarget");
-      function updateFlow(){[...flowTarget.children].forEach((item,i)=>item.dataset.order=i+1);[...flowSource.children].forEach(item=>item.dataset.order="?");}
-      document.querySelectorAll(".queue-card").forEach(card=>card.addEventListener("click",()=>{(card.parentElement===flowSource?flowTarget:flowSource).append(card);updateFlow();}));
-      document.querySelector("#resetFlow").addEventListener("click",()=>{[...flowTarget.children].forEach(item=>flowSource.append(item));updateFlow();document.querySelector("#flowFeedback").textContent="已清空，可以重新排列。";});
-      document.querySelector("#checkFlow").addEventListener("click",()=>{const steps=[...flowTarget.children].map(x=>Number(x.dataset.step));const exact=steps.length===3&&steps.every((x,i)=>x===i);const fb=document.querySelector("#flowFeedback");fb.className=`feedback ${exact?"good":"try"}`;fb.textContent=exact?"正确：梳理 PRD → 制定开发计划 → 开始开发。":"顺序还不对。先说清要做什么，再制定执行计划，最后开始开发。";if(steps.length===3)completeLab("flow");});
+      const flowSource = document.querySelector("#flowSource");
+      const flowTarget = document.querySelector("#flowTarget");
+      const checkFlow = document.querySelector("#checkFlow");
+      const flowCards = [...document.querySelectorAll(".queue-card")];
+      function updateFlow() {
+        [...flowTarget.children].forEach((item, index) => item.dataset.order = index + 1);
+        [...flowSource.children].forEach((item) => item.dataset.order = "?");
+      }
+      function resetFlowResult(message = "排列完成后，点击“检查顺序”。") {
+        flowCards.forEach((item) => item.classList.remove("correct", "wrong"));
+        resetFeedback(document.querySelector("#flowFeedback"), message);
+        armCheck(checkFlow, flowTarget.children.length === 3);
+      }
+      flowCards.forEach((card) => card.addEventListener("click", () => {
+        (card.parentElement === flowSource ? flowTarget : flowSource).append(card);
+        updateFlow();
+        resetFlowResult();
+      }));
+      document.querySelector("#resetFlow").addEventListener("click", () => {
+        [...flowTarget.children].forEach((item) => flowSource.append(item));
+        updateFlow();
+        resetFlowResult("已清空，可以重新排列。");
+      });
+      checkFlow.addEventListener("click", () => {
+        const steps = [...flowTarget.children].map((item) => Number(item.dataset.step));
+        const feedback = document.querySelector("#flowFeedback");
+        if (steps.length !== 3) {
+          feedback.className = "feedback try";
+          feedback.textContent = "请先把 3 张卡片全部放入流程。";
+          return;
+        }
+        const exact = steps.every((step, index) => step === index);
+        [...flowTarget.children].forEach((item) => item.classList.add(exact ? "correct" : "wrong"));
+        feedback.className = `feedback ${exact ? "good" : "try"}`;
+        feedback.textContent = exact ? "正确：梳理 PRD → 制定开发计划 → 开始开发。" : "顺序还不对。先说清要做什么，再制定执行计划，最后开始开发。";
+        armCheck(checkFlow, false);
+        completeLab("flow");
+      });
 
-      let activeMatch=null; const assignments=new Map(); const names={webpage:"网页",native:"手机原生 App",desktop:"桌面应用",webapp:"Web App",mini:"小程序"};
-      document.querySelectorAll(".match-item").forEach(item=>item.addEventListener("click",()=>{document.querySelectorAll(".match-item").forEach(x=>x.classList.toggle("active",x===item));activeMatch=item;}));
-      document.querySelectorAll(".match-type").forEach(type=>type.addEventListener("click",()=>{if(!activeMatch){document.querySelector("#matchFeedback").textContent="请先点选上方的一个例子。";return;}assignments.set(activeMatch,type.dataset.type);activeMatch.querySelector("span").textContent=`已选：${names[type.dataset.type]}`;activeMatch.classList.remove("active");activeMatch=null;}));
-      document.querySelector("#checkMatch").addEventListener("click",()=>{const items=[...document.querySelectorAll(".match-item")];const done=items.every(x=>assignments.has(x));const exact=done&&items.every(x=>assignments.get(x)===x.dataset.answer);const fb=document.querySelector("#matchFeedback");fb.className=`feedback ${exact?"good":"try"}`;fb.textContent=exact?"全部匹配正确！你已经能区分五种产品形态。":done?"还有匹配不正确：留意‘是否安装、从哪里打开、运行在哪个设备’。":"还没有完成全部匹配。";if(done)completeLab("match");});
+      const matchBoard = document.querySelector("#matchBoard");
+      const matchItems = document.querySelector("#matchItems");
+      const matchTypes = document.querySelector("#matchTypes");
+      const matchLines = document.querySelector("#matchLines");
+      const checkMatch = document.querySelector("#checkMatch");
+      const assignments = new Map();
+      let activeMatch = null;
+      function shuffleChildren(container) {
+        const children = [...container.children];
+        for (let index = children.length - 1; index > 0; index -= 1) {
+          const swapIndex = Math.floor(Math.random() * (index + 1));
+          [children[index], children[swapIndex]] = [children[swapIndex], children[index]];
+        }
+        children.forEach((child) => container.append(child));
+      }
+      shuffleChildren(matchItems);
+      shuffleChildren(matchTypes);
+      const itemOrder = [...matchItems.children].map((item) => item.dataset.answer);
+      const typeOrder = [...matchTypes.children].map((item) => item.dataset.type);
+      if (itemOrder.every((answer, index) => answer === typeOrder[index])) matchTypes.append(matchTypes.firstElementChild);
+      const matchItemButtons = [...document.querySelectorAll(".match-item")];
+      const matchTypeButtons = [...document.querySelectorAll(".match-type")];
+      matchItemButtons.forEach((item, index) => item.dataset.matchId = `match-${index}`);
+      function clearMatchResult(message = "继续连接，完成后点击“检查匹配”。") {
+        [...matchItemButtons, ...matchTypeButtons].forEach((item) => item.classList.remove("correct", "wrong"));
+        resetFeedback(document.querySelector("#matchFeedback"), message);
+        armCheck(checkMatch, assignments.size === matchItemButtons.length);
+        drawConnections();
+      }
+      function drawConnections() {
+        matchLines.replaceChildren();
+        const boardRect = matchBoard.getBoundingClientRect();
+        matchLines.style.width = `${matchBoard.scrollWidth}px`;
+        matchLines.style.height = `${matchBoard.scrollHeight}px`;
+        matchLines.setAttribute("viewBox", `0 0 ${matchBoard.scrollWidth} ${matchBoard.scrollHeight}`);
+        assignments.forEach((typeName, item) => {
+          const type = matchTypeButtons.find((button) => button.dataset.type === typeName);
+          if (!type) return;
+          const itemRect = item.getBoundingClientRect();
+          const typeRect = type.getBoundingClientRect();
+          const x1 = itemRect.left - boardRect.left + matchBoard.scrollLeft + itemRect.width / 2;
+          const y1 = itemRect.bottom - boardRect.top;
+          const x2 = typeRect.left - boardRect.left + matchBoard.scrollLeft + typeRect.width / 2;
+          const y2 = typeRect.top - boardRect.top;
+          const bend = Math.max(30, (y2 - y1) * .48);
+          const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+          path.setAttribute("d", `M ${x1} ${y1} C ${x1} ${y1 + bend}, ${x2} ${y2 - bend}, ${x2} ${y2}`);
+          path.setAttribute("class", `match-line${item.classList.contains("correct") ? " correct" : item.classList.contains("wrong") ? " wrong" : ""}`);
+          matchLines.append(path);
+        });
+      }
+      matchItemButtons.forEach((item) => item.addEventListener("click", () => {
+        matchItemButtons.forEach((button) => button.classList.toggle("active", button === item));
+        activeMatch = item;
+        clearMatchResult("已选中上方产品，现在点击下方身份完成连线。");
+      }));
+      matchTypeButtons.forEach((type) => type.addEventListener("click", () => {
+        if (!activeMatch) {
+          resetFeedback(document.querySelector("#matchFeedback"), "请先点选上方的一个产品例子。");
+          return;
+        }
+        const occupiedItem = matchItemButtons.find((item) => item !== activeMatch && assignments.get(item) === type.dataset.type);
+        if (occupiedItem) {
+          assignments.delete(occupiedItem);
+          occupiedItem.querySelector("span").textContent = "尚未连接";
+        }
+        assignments.set(activeMatch, type.dataset.type);
+        activeMatch.querySelector("span").textContent = "已连接";
+        activeMatch.classList.remove("active");
+        activeMatch = null;
+        clearMatchResult();
+      }));
+      checkMatch.addEventListener("click", () => {
+        const feedback = document.querySelector("#matchFeedback");
+        if (assignments.size !== matchItemButtons.length) {
+          feedback.className = "feedback try";
+          feedback.textContent = `还有 ${matchItemButtons.length - assignments.size} 个产品没有连线。`;
+          return;
+        }
+        const wrongItems = [];
+        matchItemButtons.forEach((item) => {
+          const correct = assignments.get(item) === item.dataset.answer;
+          item.classList.add(correct ? "correct" : "wrong");
+          const type = matchTypeButtons.find((button) => button.dataset.type === assignments.get(item));
+          type.classList.add(correct ? "correct" : "wrong");
+          if (!correct) wrongItems.push(item.childNodes[0].textContent.trim());
+        });
+        const exact = wrongItems.length === 0;
+        feedback.className = `feedback ${exact ? "good" : "try"}`;
+        feedback.textContent = exact ? "全部匹配正确！你已经能区分五种产品形态。" : `这些产品连错了：${wrongItems.join("、")}。重新选择后会恢复白色。`;
+        armCheck(checkMatch, false);
+        drawConnections();
+        completeLab("match");
+      });
+      window.addEventListener("resize", drawConnections);
+      requestAnimationFrame(drawConnections);
 
-      document.querySelectorAll(".quiz-option").forEach(btn=>btn.addEventListener("click",()=>{const row=btn.closest(".quiz-row");row.dataset.selected=btn.dataset.value;row.querySelectorAll(".quiz-option").forEach(x=>x.classList.toggle("selected",x===btn));}));
-      document.querySelector("#checkFinal").addEventListener("click",()=>{const rows=[...document.querySelectorAll(".quiz-row")];const done=rows.every(x=>x.dataset.selected);const score=rows.filter(x=>x.dataset.selected===x.dataset.answer).length;const fb=document.querySelector("#finalFeedback");fb.className=`feedback ${score===4?"good":"try"}`;fb.textContent=done?(score===4?"4/4 全部正确！静态/动态和前端/后端已经分清。":`${score}/4 正确。记住：是否因人变化看静态/动态；用户看得到的界面是前端，数据处理和存储是后端。`):"请先完成四个情境。";if(done)completeLab("final");});
+      const quizRows = [...document.querySelectorAll(".quiz-row")];
+      const checkFinal = document.querySelector("#checkFinal");
+      function resetFinalResult() {
+        document.querySelectorAll(".quiz-option").forEach((button) => button.classList.remove("correct", "wrong"));
+        resetFeedback(document.querySelector("#finalFeedback"), "完成四道题后，点击“检查答案”。");
+        armCheck(checkFinal, quizRows.every((row) => row.dataset.selected));
+      }
+      document.querySelectorAll(".quiz-option").forEach((button) => button.addEventListener("click", () => {
+        const row = button.closest(".quiz-row");
+        row.dataset.selected = button.dataset.value;
+        row.querySelectorAll(".quiz-option").forEach((item) => item.classList.toggle("selected", item === button));
+        resetFinalResult();
+      }));
+      checkFinal.addEventListener("click", () => {
+        const feedback = document.querySelector("#finalFeedback");
+        const unanswered = quizRows.map((row, index) => row.dataset.selected ? null : index + 1).filter(Boolean);
+        if (unanswered.length) {
+          feedback.className = "feedback try";
+          feedback.textContent = `请先完成第 ${unanswered.join("、")} 题。`;
+          return;
+        }
+        const wrongNumbers = [];
+        quizRows.forEach((row, index) => {
+          const correct = row.dataset.selected === row.dataset.answer;
+          row.querySelector(`.quiz-option[data-value="${row.dataset.selected}"]`).classList.add(correct ? "correct" : "wrong");
+          if (!correct) wrongNumbers.push(index + 1);
+        });
+        const exact = wrongNumbers.length === 0;
+        feedback.className = `feedback ${exact ? "good" : "try"}`;
+        feedback.textContent = exact ? "4/4 全部正确！静态、动态、前端和后端已经分清。" : `答错的是第 ${wrongNumbers.join("、")} 题。记住：是否因人变化看静态/动态；用户看得到的界面是前端，数据处理和存储是后端。`;
+        armCheck(checkFinal, false);
+        completeLab("final");
+      });
 
-      const finishBtn=document.querySelector("#finishBtn");
-      function renderFinish(){if(localStorage.getItem(STORAGE_KEY)){document.querySelector("#finishTitle").textContent="概念地图已收录";document.querySelector("#finishText").textContent="你已经完成 Vibe Coding 基础扫盲，可以继续探索后面的关卡。";finishBtn.textContent="已完成 ✓";}}
-      finishBtn.addEventListener("click",()=>{localStorage.setItem(STORAGE_KEY,"done");renderFinish();showToast("第二关完成：Vibe Coding 基础扫盲");});renderFinish();
+      const finishBtn = document.querySelector("#finishBtn");
+      function renderFinish() {
+        if (localStorage.getItem(STORAGE_KEY)) {
+          document.querySelector("#finishTitle").textContent = "概念地图已收录";
+          document.querySelector("#finishText").textContent = "你已经完成 Vibe Coding 基础扫盲，可以继续探索后面的关卡。";
+          finishBtn.textContent = "已完成 ✓";
+        }
+      }
+      finishBtn.addEventListener("click", () => { localStorage.setItem(STORAGE_KEY, "done"); renderFinish(); showToast("第二关完成：Vibe Coding 基础扫盲"); });
+      renderFinish();
     </script>
   </body>
 </html>
