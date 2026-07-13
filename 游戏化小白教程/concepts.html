@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#101a2b" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23101a2b'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%23bff44b' stroke-width='5'/%3E%3Cpath d='M24 32h16M32 24v16' stroke='%234ed7dd' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E" />
+    <title>第三关 · AI 基础概念扫盲</title>
+    <style>
+      :root { --night:#101a2b; --night-2:#18263b; --paper:#fffdf6; --ink:#14253a; --muted:#667382; --line:#18304a; --lime:#bff44b; --cyan:#4ed7dd; --orange:#ff8158; --yellow:#ffd25e; --shadow:7px 8px 0 rgba(16,26,43,.15); }
+      * { box-sizing:border-box; }
+      html { scroll-behavior:smooth; }
+      body { margin:0; color:var(--ink); font-family:"Avenir Next","PingFang SC","Microsoft YaHei",sans-serif; background:linear-gradient(rgba(24,48,74,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(24,48,74,.045) 1px,transparent 1px),#e9e5d8; background-size:24px 24px; }
+      button,a { font:inherit; } button { color:inherit; } a { color:inherit; text-decoration:none; } img { display:block; max-width:100%; }
+      .shell { width:min(1380px,calc(100% - 20px)); margin:0 auto; padding:16px 0 54px; }
+      .topbar { position:sticky; top:10px; z-index:30; display:grid; grid-template-columns:1fr auto auto; gap:18px; align-items:center; padding:10px 13px; border:2px solid var(--night); border-radius:16px; background:rgba(255,253,246,.92); box-shadow:0 6px 0 rgba(16,26,43,.14); backdrop-filter:blur(12px); }
+      .home-link { display:inline-flex; gap:9px; align-items:center; font-size:13px; font-weight:900; }
+      .home-icon { display:grid; width:34px; height:34px; place-items:center; border-radius:10px; background:var(--night); color:var(--lime); }
+      .stage-pill { padding:6px 10px; border:1.5px solid var(--line); border-radius:999px; background:#fff; font-size:12px; font-weight:900; }
+      .signal { min-width:175px; } .signal-label { display:flex; justify-content:space-between; margin-bottom:5px; font-size:11px; font-weight:900; }
+      .signal-track { height:9px; overflow:hidden; border:1.5px solid var(--night); border-radius:999px; background:#d9d8cf; } .signal-fill { width:0; height:100%; background:linear-gradient(90deg,var(--cyan),var(--lime)); transition:width 350ms ease; }
+      .hero { position:relative; overflow:hidden; display:grid; grid-template-columns:minmax(0,1.08fr) minmax(310px,.92fr); gap:26px; margin:24px 0 18px; padding:clamp(28px,5vw,58px); border:2px solid var(--night); border-radius:30px 30px 30px 8px; background:var(--night); box-shadow:9px 10px 0 rgba(16,26,43,.15); color:#f8f6ed; }
+      .hero::after { position:absolute; right:-100px; bottom:-180px; width:480px; height:480px; border:64px solid rgba(78,215,221,.09); border-radius:50%; content:""; }
+      .hero-copy,.brief { position:relative; z-index:1; }
+      .kicker { display:inline-flex; gap:8px; align-items:center; margin-bottom:18px; padding:7px 10px; border:1.5px solid var(--lime); border-radius:999px; color:var(--lime); font-size:12px; font-weight:900; letter-spacing:.08em; }
+      h1,h2,h3,p { margin-top:0; } h1 { max-width:780px; margin-bottom:18px; font-size:clamp(45px,6.3vw,78px); line-height:.98; letter-spacing:-.055em; }
+      .hero-copy>p { max-width:680px; margin-bottom:23px; color:#c8d3de; font-size:17px; line-height:1.8; }
+      .hero-meta { display:flex; flex-wrap:wrap; gap:9px; } .hero-meta span { padding:7px 10px; border:1px solid #617084; border-radius:999px; color:#dfe7ed; font-size:12px; font-weight:800; }
+      .brief { align-self:center; padding:23px; border:1.5px solid #527084; border-radius:22px; background:rgba(20,42,60,.74); }
+      .brief small { display:block; color:#99aabd; font-weight:800; letter-spacing:.08em; } .brief strong { display:block; margin:4px 0 12px; font-size:18px; }
+      .brief ol { margin:0; padding-left:21px; color:#d7e0e8; font-size:13px; line-height:1.8; }
+      .layout { display:grid; grid-template-columns:220px minmax(0,1fr); gap:18px; align-items:start; }
+      .side-nav { position:sticky; top:88px; padding:16px; border:2px solid var(--night); border-radius:20px; background:var(--paper); box-shadow:var(--shadow); }
+      .side-nav strong { display:block; margin-bottom:12px; font-size:13px; } .side-nav a { display:flex; gap:9px; align-items:center; padding:9px 10px; border-radius:10px; color:var(--muted); font-size:12px; font-weight:800; } .side-nav a:hover { background:#e9f1df; color:var(--ink); }
+      .nav-num { display:grid; width:22px; height:22px; flex:0 0 auto; place-items:center; border-radius:7px; background:var(--night); color:var(--lime); font-size:10px; }
+      .content { min-width:0; display:grid; gap:18px; } .lesson-card { min-width:0; padding:clamp(20px,4vw,34px); border:2px solid var(--night); border-radius:24px 24px 24px 7px; background:var(--paper); box-shadow:var(--shadow); scroll-margin-top:92px; }
+      .section-tag { display:inline-block; margin-bottom:12px; color:#297683; font-size:11px; font-weight:1000; letter-spacing:.12em; } .lesson-card h2 { margin-bottom:12px; font-size:clamp(27px,4vw,40px); line-height:1.12; letter-spacing:-.035em; }
+      .lesson-card>p,.copy p,.copy li { color:var(--muted); line-height:1.75; }
+      .model-section { margin-top:22px; padding:18px; border:2px solid var(--line); border-radius:18px; background:#f1f3ef; } .model-section h3 { margin-bottom:12px; }
+      .model-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; } .model-card { padding:17px; border:1.5px solid var(--line); border-radius:14px; background:#fff; } .model-card h3 { margin-bottom:7px; } .model-card b { color:#267581; } .model-card p { margin:0; color:var(--muted); font-size:13px; line-height:1.65; } .model-card a { display:inline-block; margin-top:9px; color:#247180; font-size:12px; font-weight:900; border-bottom:1px solid currentColor; }
+      .tip { margin-top:16px; padding:15px 17px; border:2px solid #675529; border-radius:14px; background:#fff0bd; color:#634719; font-weight:850; line-height:1.65; }
+      .key-flow { display:grid; grid-template-columns:1fr auto 1fr auto 1fr; gap:10px; align-items:center; margin:20px 0; } .key-node { min-height:110px; padding:17px; border:2px solid var(--line); border-radius:15px; background:#fff; } .key-node.key { background:#eef8d8; } .key-node b { display:block; margin-bottom:7px; color:#247180; } .key-node p { margin:0; color:var(--muted); font-size:13px; line-height:1.6; } .key-arrow { color:#247180; font-size:25px; font-weight:1000; }
+      .module { margin-top:20px; padding:20px; border:2px solid var(--line); border-radius:18px; background:#fff; } .module-tag { display:inline-block; margin-bottom:10px; padding:5px 8px; border-radius:999px; background:var(--night); color:var(--lime); font-size:11px; font-weight:900; } .module h3 { margin-bottom:9px; } .module p,.module li { color:var(--muted); line-height:1.7; } .tool-pair { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px; } .tool-box { padding:16px; border:1.5px solid var(--line); border-radius:14px; background:#f1f4f2; } .tool-box strong { display:block; margin-bottom:6px; } .tool-box p { margin:0; font-size:13px; }
+      .shot-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px; } .shot { overflow:hidden; display:flex; flex-direction:column; border:2px solid var(--night); border-radius:15px; background:#eef0f0; } .shot img { width:100%; height:clamp(220px,28vw,420px); flex:1; object-fit:contain; } .shot figcaption { flex:0 0 auto; padding:9px 12px; background:var(--night); color:#dbe3e9; font-size:11px; }
+      .shot.single { margin-top:16px; } .shot.single img { height:auto; max-height:650px; }
+      .logo-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin:18px 0; } .logo-card { display:flex; min-height:170px; flex-direction:column; align-items:center; justify-content:space-between; padding:14px; border:2px solid var(--line); border-radius:15px; background:#fff; text-align:center; } .logo-card img { width:100%; height:110px; object-fit:contain; } .logo-card strong { margin-top:8px; }
+      .agent-grid { display:grid; gap:16px; margin-top:18px; } .agent { display:grid; grid-template-columns:minmax(280px,.85fr) 1.15fr; gap:18px; align-items:center; padding:18px; border:2px solid var(--line); border-radius:18px; background:#fff; } .agent:nth-child(even) { background:#eef8d8; } .agent img { width:100%; max-height:360px; object-fit:contain; border-radius:10px; } .agent h3 { margin-bottom:8px; } .agent p { margin-bottom:9px; color:var(--muted); line-height:1.7; }
+      .compare-table { width:100%; margin-top:18px; border-collapse:separate; border-spacing:0; overflow:hidden; border:2px solid var(--night); border-radius:14px; font-size:13px; } .compare-table th,.compare-table td { padding:12px; border-right:1px solid #bcc5c8; border-bottom:1px solid #bcc5c8; text-align:left; line-height:1.55; } .compare-table th { background:var(--night); color:#fff; } .compare-table tr:last-child td { border-bottom:0; } .compare-table th:last-child,.compare-table td:last-child { border-right:0; }
+      .repo-grid,.deploy-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:18px; } .repo-card,.deploy-card { padding:20px; border:2px solid var(--line); border-radius:17px; background:#fff; } .repo-card.local,.deploy-card.cloud { background:#eef8d8; } .repo-card h3,.deploy-card h3 { margin-bottom:8px; } .repo-card p,.repo-card li,.deploy-card p,.deploy-card li { color:var(--muted); font-size:13px; line-height:1.7; }
+      .lab { min-width:0; margin-top:25px; padding:20px; border:2px solid var(--night); border-radius:18px; background:var(--night-2); color:#f7f6ef; } .lab-head { display:flex; gap:12px; align-items:start; justify-content:space-between; margin-bottom:15px; } .lab-count { flex:0 0 auto; padding:5px 8px; border-radius:999px; background:var(--lime); color:var(--night); font-size:10px; font-weight:1000; } .lab h3 { margin-bottom:5px; font-size:18px; } .lab p { margin-bottom:0; color:#acbbc9; font-size:13px; line-height:1.6; }
+      .choice-grid { display:grid; grid-template-columns:1fr 1fr; gap:9px; } .choice,.quiz-option,.category-option { padding:11px 12px; border:2px solid #66758a; border-radius:10px; background:#fff; color:var(--ink); cursor:pointer; font-weight:900; text-align:left; transition:box-shadow 140ms ease,background 140ms ease; } .choice.selected,.quiz-option.selected,.category-option.selected { border-color:var(--cyan); box-shadow:0 0 0 3px rgba(78,215,221,.2); }
+      .choice.correct,.quiz-option.correct,.category-option.correct { border-color:#7cab20!important; background:#dff6aa!important; } .choice.wrong,.quiz-option.wrong,.category-option.wrong { border-color:var(--orange)!important; background:#ffd2c3!important; }
+      .classify-list,.quiz-list { display:grid; gap:12px; } .classify-row,.quiz-row { padding:13px; border:1.5px solid #596b80; border-radius:12px; } .classify-row strong,.quiz-row strong { display:block; margin-bottom:9px; } .category-options,.quiz-options { display:flex; flex-wrap:wrap; gap:8px; } .category-option,.quiz-option { padding:8px 11px; text-align:center; }
+      .lab-actions { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:14px; } .action { display:inline-flex; min-height:44px; align-items:center; justify-content:center; padding:9px 14px; border:2px solid var(--night); border-radius:11px; background:var(--lime); box-shadow:3px 3px 0 #617085; color:var(--night); cursor:pointer; font-weight:900; } .action.secondary { background:#fff; } .action.ready { animation:check-nudge 850ms ease-in-out infinite; } @keyframes check-nudge { 0%,100% { box-shadow:3px 3px 0 #617085,0 0 0 0 rgba(191,244,75,.45); } 50% { box-shadow:3px 3px 0 #617085,0 0 0 7px rgba(191,244,75,0); } }
+      .feedback { min-height:40px; margin-top:13px; padding:10px 12px; border-left:4px solid #6e7c8c; background:rgba(255,255,255,.06); color:#d9e3ea; font-size:13px; line-height:1.6; } .feedback.good { border-color:var(--lime); } .feedback.try { border-color:var(--orange); }
+      .finish { padding:27px; border:2px solid var(--night); border-radius:22px; background:var(--night); color:#fff; text-align:center; } .finish-badge { display:grid; width:74px; height:74px; margin:0 auto 14px; place-items:center; border:2px solid var(--lime); border-radius:50%; color:var(--lime); font-size:34px; } .finish h2 { margin-bottom:8px; } .finish p { max-width:650px; margin:0 auto 18px; color:#aebdcc; line-height:1.7; } .finish-actions { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+      .toast { position:fixed; right:18px; bottom:18px; z-index:50; max-width:320px; padding:12px 15px; border:2px solid var(--night); border-radius:12px; background:var(--lime); box-shadow:4px 4px 0 var(--night); font-size:13px; font-weight:900; transform:translateY(130%); transition:transform 220ms ease; } .toast.show { transform:translateY(0); }
+      @media(max-width:950px) { .hero{grid-template-columns:1fr}.layout{grid-template-columns:1fr}.side-nav{position:static;display:flex;overflow-x:auto;gap:4px}.side-nav strong{display:none}.side-nav a{flex:0 0 auto}.model-grid{grid-template-columns:1fr 1fr}.logo-grid{grid-template-columns:repeat(3,1fr)} }
+      @media(max-width:620px) { .shell{width:min(100% - 20px,1380px)}.topbar{grid-template-columns:1fr auto}.stage-pill{display:none}.signal{min-width:120px}.hero{padding:26px 20px}h1{font-size:43px}.model-grid,.shot-grid,.tool-pair,.repo-grid,.deploy-grid,.choice-grid{grid-template-columns:1fr}.key-flow{grid-template-columns:1fr}.key-arrow{transform:rotate(90deg);justify-self:center}.logo-grid{grid-template-columns:1fr 1fr}.agent{grid-template-columns:1fr}.lesson-card{padding:20px 16px}.compare-table{display:block;overflow-x:auto;white-space:nowrap} }
+      @media(prefers-reduced-motion:reduce) { *,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important} }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <header class="topbar">
+        <a class="home-link" href="home.html"><span class="home-icon">←</span><span>返回新手村</span></a>
+        <span class="stage-pill">LEVEL 03 · 概念装备库</span>
+        <div class="signal"><div class="signal-label"><span>理解信号</span><span id="signalText">0 / 3</span></div><div class="signal-track"><div class="signal-fill" id="signalFill"></div></div></div>
+      </header>
+
+      <main>
+        <section class="hero">
+          <div class="hero-copy"><span class="kicker">● 第三关 · 给开发词汇贴上标签</span><h1>AI 基础概念<br />一次扫清</h1><p>这一关不要求实操。先认清大模型、API Key、开发五件套、编程工作台、数字特工、代码仓库和部署平台，之后听到这些词不再发懵。</p><div class="hero-meta"><span>6 组知识地图</span><span>11 张原始图片</span><span>3 个轻互动</span></div></div>
+          <aside class="brief"><small>本关通关目标</small><strong>知道每个工具“住在哪里、负责什么”</strong><ol><li>分清模型、密钥与开发环境</li><li>分清 IDE、终端智能体和数字管家</li><li>知道代码怎样保存并发布成链接</li></ol></aside>
+        </section>
+
+        <div class="layout">
+          <nav class="side-nav"><strong>任务路线</strong><a href="#models"><span class="nav-num">01</span>模型与密钥</a><a href="#five"><span class="nav-num">02</span>开发五件套</a><a href="#ide"><span class="nav-num">03</span>编程工作台</a><a href="#agents"><span class="nav-num">04</span>数字特工</a><a href="#repos"><span class="nav-num">05</span>代码仓库</a><a href="#deploy"><span class="nav-num">06</span>部署发布</a></nav>
+
+          <div class="content">
+            <section class="lesson-card" id="models">
+              <span class="section-tag">01 · LLM / API KEY</span><h2>核心灵魂：大模型与 API Key</h2>
+              <p><strong>大模型（LLM）</strong>像一个住在云端的“外挂大脑”。它能写代码、画画、写方案，但通常住在 OpenAI、Google 等公司的服务器里。你可以去官网直接使用，也可以把它接入其他工具。</p>
+              <div class="model-section"><h3>国外大模型</h3><div class="model-grid">
+                <article class="model-card"><h3>ChatGPT</h3><p><b>GPT-5.6：</b>像兢兢业业的全栈白领，能力全面，能处理很多工作任务。</p><a href="https://chatgpt.com/" target="_blank" rel="noreferrer">打开官网 ↗</a></article>
+                <article class="model-card"><h3>Claude</h3><p><b>Claude Opus 4.8：</b>像擅长顶层规划的架构师，写出的内容也很有质感。</p><a href="https://claude.ai/" target="_blank" rel="noreferrer">打开官网 ↗</a></article>
+                <article class="model-card"><h3>Gemini</h3><p><b>Gemini 3.1 Pro：</b>像很会展示自己的全知科学家，前端与科研能力突出。</p><a href="https://gemini.google.com/app" target="_blank" rel="noreferrer">打开官网 ↗</a></article>
+              </div></div>
+              <div class="model-section"><h3>国内大模型</h3><div class="model-grid">
+                <article class="model-card"><h3>DeepSeek</h3><p><b>DeepSeek V4：</b>像记性很好的书虫，擅长处理大量代码、长文档和复杂材料。</p><a href="https://www.deepseek.com/" target="_blank" rel="noreferrer">打开官网 ↗</a></article>
+                <article class="model-card"><h3>豆包</h3><p>国内常用的综合 AI 助手，可以先从日常对话和内容任务开始体验。</p><a href="https://www.doubao.com/chat/" target="_blank" rel="noreferrer">打开官网 ↗</a></article>
+                <article class="model-card"><h3>智谱</h3><p><b>GLM-5.2：</b>像靠谱踏实的技术大牛，适合复杂项目与技术框架规划。</p><a href="https://chatglm.cn/" target="_blank" rel="noreferrer">打开官网 ↗</a></article>
+              </div></div>
+              <div class="tip">模型更新很快，不需要全部订阅。实践时选一个适合需求、价格也合适的模型即可；上面的版本名称以课程文档更新时为准。</div>
+              <h3 style="margin-top:28px">API Key 是什么？</h3><p>当你不在模型官网，而是在 AI 编程工具或智能体里调用这个“大脑”，通常需要购买模型用量，并获得一串专属通行码——<strong>API Key</strong>。它像“银行卡号 + 密码”，填进工具后，工具才能连接对应模型并产生费用。</p>
+              <div class="key-flow"><div class="key-node"><b>其他工具</b><p>AI 编程工具、智能体或自己的应用发起请求。</p></div><span class="key-arrow">→</span><div class="key-node key"><b>API Key 🔑</b><p>证明“谁在调用”，并把用量记到你的账户。</p></div><span class="key-arrow">→</span><div class="key-node"><b>云端大模型</b><p>收到请求、生成结果，再把答案返回工具。</p></div></div>
+              <div class="lab" data-lab="key"><div class="lab-head"><div><h3>互动 1 · 守住你的模型通行码</h3><p>可以多选：下面哪些做法是安全的？</p></div><span class="lab-count">+1 信号</span></div><div class="choice-grid">
+                <button class="choice" type="button" data-correct="true">只在可信工具的密钥设置中填写</button><button class="choice" type="button" data-correct="false">把 API Key 发到群聊，请别人帮忙保存</button><button class="choice" type="button" data-correct="true">发现泄露后立即作废并生成新 Key</button><button class="choice" type="button" data-correct="true">发布截图或代码前检查是否包含 Key</button>
+              </div><div class="lab-actions"><button class="action" type="button" id="checkKey">检查答案</button><span>答错也可以继续学习 ↓</span></div><div class="feedback" id="keyFeedback">先选择你认为安全的做法。</div></div>
+            </section>
+
+            <section class="lesson-card" id="five">
+              <span class="section-tag">02 · DEVELOPER STARTER KIT</span><h2>开发世界的五个核心概念</h2><p>把它们分成三大模块，就得到开启开发之路的“新手五件套”。</p>
+              <article class="module"><span class="module-tag">模块一 · 电脑自带</span><h3>Terminal（终端）——电脑的总指挥室</h3><p>终端是电脑自带的黑色或白色命令框。平时用鼠标点图标，是让系统替你找东西；在终端里，你可以直接用文字向电脑下达底层命令，像拿着“对讲机”指挥电脑。</p><div class="shot-grid"><figure class="shot"><img src="lesson3-assets/terminal-mac.png" alt="Mac 应用程序中的终端" /><figcaption>Mac：在“应用程序”中可以找到终端。</figcaption></figure><figure class="shot"><img src="lesson3-assets/terminal-windows.png" alt="Windows 运行窗口打开 cmd" /><figcaption>Windows：按 Win + R，再输入 cmd 打开。</figcaption></figure></div></article>
+              <article class="module"><span class="module-tag">模块二 · 代码双引擎</span><h3>让代码真正跑起来</h3><p>终端负责发号施令，但电脑还需要“运行环境”才能听懂不同代码。它们像汽车发动机，没有它们，代码只是写满字母的文件。</p><div class="tool-pair"><div class="tool-box"><strong>Python · AI 世界的通用语</strong><p>大量 AI 与大模型项目使用 Python。安装后，电脑就能读懂并运行 Python 代码；它简单好学，是 AI 开发常见基建。</p></div><div class="tool-box"><strong>Node.js · 网页工具的动力源</strong><p>它是前端和网页技术常用的运行环境，能让各种网页工具、开源 AI 界面和自动化插件在本地真正跑起来。</p></div></div></article>
+              <article class="module"><span class="module-tag">模块三 · 管理与传承</span><h3>Git + GitHub：后悔药与云端仓库</h3><div class="tool-pair"><div class="tool-box"><strong>Git · 安装在电脑里的时空传送门</strong><p>记录每次修改，代码写乱时可以回退；也像快递员，把本地代码传送到云端。</p></div><div class="tool-box"><strong>GitHub · 全球开发者的云端仓库</strong><p>它是网站，不是电脑软件。可以备份、分享和开源代码，也能下载别人的项目、点赞 Star，并把作品变成“赛博简历”。</p></div></div><figure class="shot single"><img src="lesson3-assets/github.png" alt="GitHub 网站页面" /><figcaption>GitHub 是网站；Git 是安装在电脑里的版本管理工具，两者不是同一个东西。</figcaption></figure></article>
+              <div class="lab" data-lab="five"><div class="lab-head"><div><h3>互动 2 · 把五件套送回正确模块</h3><p>每一行选择它所属的模块，再统一检查。</p></div><span class="lab-count">+1 信号</span></div><div class="classify-list">
+                <div class="classify-row" data-answer="command"><strong>第 1 题 · Terminal</strong><div class="category-options"><button class="category-option" type="button" data-value="command">底层指挥</button><button class="category-option" type="button" data-value="runtime">代码引擎</button><button class="category-option" type="button" data-value="manage">管理传承</button></div></div>
+                <div class="classify-row" data-answer="runtime"><strong>第 2 题 · Python</strong><div class="category-options"><button class="category-option" type="button" data-value="command">底层指挥</button><button class="category-option" type="button" data-value="runtime">代码引擎</button><button class="category-option" type="button" data-value="manage">管理传承</button></div></div>
+                <div class="classify-row" data-answer="runtime"><strong>第 3 题 · Node.js</strong><div class="category-options"><button class="category-option" type="button" data-value="command">底层指挥</button><button class="category-option" type="button" data-value="runtime">代码引擎</button><button class="category-option" type="button" data-value="manage">管理传承</button></div></div>
+                <div class="classify-row" data-answer="manage"><strong>第 4 题 · Git</strong><div class="category-options"><button class="category-option" type="button" data-value="command">底层指挥</button><button class="category-option" type="button" data-value="runtime">代码引擎</button><button class="category-option" type="button" data-value="manage">管理传承</button></div></div>
+                <div class="classify-row" data-answer="manage"><strong>第 5 题 · GitHub</strong><div class="category-options"><button class="category-option" type="button" data-value="command">底层指挥</button><button class="category-option" type="button" data-value="runtime">代码引擎</button><button class="category-option" type="button" data-value="manage">管理传承</button></div></div>
+              </div><div class="lab-actions"><button class="action" type="button" id="checkFive">检查答案</button></div><div class="feedback" id="fiveFeedback">完成五道题后，点击“检查答案”。</div></div>
+            </section>
+
+            <section class="lesson-card" id="ide">
+              <span class="section-tag">03 · AI CODING IDE</span><h2>AI 编程工作台</h2><p>Cursor、Trae、Antigravity（反重力）、CodeBuddy、Codex 都是热门的 <strong>AI 编程辅助工具（IDE）</strong>。IDE 的英文是 Integrated Development Environment，中文叫“集成开发环境”。</p>
+              <div class="logo-grid"><article class="logo-card"><img src="lesson3-assets/cursor.png" alt="Cursor" /><strong>Cursor</strong></article><article class="logo-card"><img src="lesson3-assets/trae.png" alt="Trae" /><strong>Trae</strong></article><article class="logo-card"><img src="lesson3-assets/antigravity.png" alt="Antigravity" /><strong>Antigravity</strong></article><article class="logo-card"><img src="lesson3-assets/codebuddy.png" alt="CodeBuddy" /><strong>CodeBuddy</strong></article><article class="logo-card"><img src="lesson3-assets/codex.png" alt="Codex" /><strong>Codex</strong></article></div>
+              <div class="tip">以前写代码是一个字母一个字母敲；现在可以“你用嘴提需求，AI 帮你写”。这些工具界面和主要功能相近，不需要全部下载，先选一个学习即可。</div>
+            </section>
+
+            <section class="lesson-card" id="agents">
+              <span class="section-tag">04 · DIGITAL AGENTS</span><h2>数字特工：Claude Code 与 OpenClaw</h2><p>Claude Code 和 OpenClaw 不算普通 App，它们可以在终端、编程工具或聊天软件中工作。关键区别在于：你要盯着它一起做，还是交代任务后让它独立完成，或者从手机上远程指挥整台电脑。</p>
+              <div class="agent-grid">
+                <article class="agent"><img src="lesson3-assets/trae-interface.png" alt="Trae CN 界面" /><div><h3>TRAE 等 IDE · 智能副驾</h3><p><strong>角色：沉浸式辅助工具。</strong>像你坐在工作台前，AI 坐在旁边。你提出需求，它展示代码改动，等待你点击接受。</p><p>你决定往哪里开，AI 和你商量着完成；你仍是主导者。</p></div></article>
+                <article class="agent"><img src="lesson3-assets/claude-code.png" alt="Claude Code 终端界面" /><div><h3>Claude Code · 精英特工助手</h3><p><strong>角色：终端智能体（CLI Agent）。</strong>它住在终端里。你可以交代一项复杂任务，它自己翻文件、修改、运行测试，完成后再汇报。</p><p>像一个随叫随到的员工，但它只能在获得权限的“办公室”范围内工作。</p></div></article>
+                <article class="agent"><img src="lesson3-assets/openclaw.png" alt="OpenClaw 界面" /><div><h3>OpenClaw · 赛博全能管家</h3><p><strong>角色：跨平台数字分身。</strong>它不仅写代码，还能接入飞书或 Discord，读取本地文件，并根据授权操控其他程序。</p><p>像 24 小时在线的远程管家：你可以在手机上发消息，让它处理电脑上的工作和杂活。</p></div></article>
+              </div>
+              <table class="compare-table"><thead><tr><th>工具</th><th>交互方式</th><th>谁是老大？</th><th>核心强项</th></tr></thead><tbody><tr><td>Trae 等 IDE</td><td>鼠标点击 + 工具内聊天</td><td>你（AI 是副驾驶）</td><td>写新功能、边写边聊、视觉直观</td></tr><tr><td>Claude Code</td><td>在终端里敲命令</td><td>任务（AI 独立执行）</td><td>大规模改代码、查 bug、自动化</td></tr><tr><td>OpenClaw</td><td>飞书 / Discord 等聊天软件</td><td>场景（AI 是代理人）</td><td>远程办公、跨平台整合、生活与工作杂活</td></tr></tbody></table>
+            </section>
+
+            <section class="lesson-card" id="repos">
+              <span class="section-tag">05 · CODE REPOSITORY</span><h2>代码仓库：GitHub 与 Gitee</h2><p>代码不能只存在自己的电脑里，还需要存放、管理、分享和上线。代码仓库可以防止代码丢失、记录修改历史、方便协作，也是后续部署的重要入口。</p>
+              <div class="repo-grid"><article class="repo-card"><h3>GitHub · 全球共享代码仓库</h3><p>世界各地的开发者在这里分享代码。你可以寻找现成“积木”搭建项目，也能保存和展示自己的作品。</p><ul><li>生态大、开源项目丰富</li><li>英文内容多，国内访问有时较慢</li></ul></article><article class="repo-card local"><h3>Gitee（码云）· 国内代码仓库</h3><p>界面全中文、国内访问更快，很多国内开源项目也会放在这里。</p><ul><li>适合需要顺畅国内访问的场景</li><li>作用同样是存放、管理和分享代码</li></ul></article></div>
+            </section>
+
+            <section class="lesson-card" id="deploy">
+              <span class="section-tag">06 · DEPLOYMENT</span><h2>部署发布：让朋友打开你的作品</h2><p>应用写好后还是躺在电脑里的“本地文件”，朋友无法直接访问。部署就是给它找一块能被互联网访问的地方，并生成一个可以分享的网址。</p>
+              <div class="deploy-grid"><article class="deploy-card"><h3>Vercel · 省心的全球发布平台</h3><p>把代码交给 Vercel，它很快就能生成公网网址，不需要自己配置服务器。</p><ul><li>功能集中：把代码变成链接</li><li>使用简单，适合快速发布网页</li><li>属于海外服务，国内访问可能受网络影响</li></ul></article><article class="deploy-card cloud"><h3>腾讯云 / 阿里云 · 可扩展的数字地皮</h3><p>适合希望国内稳定访问、更复杂功能或职业化、商业化的项目。</p><ul><li>支持静态网站和动态应用</li><li>可配置域名、加密与加速</li><li>空间更大，但通常需要更多设置</li></ul></article></div>
+              <div class="lab" data-lab="tools"><div class="lab-head"><div><h3>互动 3 · 给任务选择合适工具</h3><p>五个情境各选一个最合适的工具，检查自己是否建立了完整地图。</p></div><span class="lab-count">+1 信号</span></div><div class="quiz-list">
+                <div class="quiz-row" data-answer="ide"><strong>第 1 题 · 想一边看界面、一边和 AI 商量着写功能</strong><div class="quiz-options"><button class="quiz-option" type="button" data-value="ide">AI 编程 IDE</button><button class="quiz-option" type="button" data-value="claude">Claude Code</button><button class="quiz-option" type="button" data-value="claw">OpenClaw</button></div></div>
+                <div class="quiz-row" data-answer="claude"><strong>第 2 题 · 要在终端里批量修改代码并自动测试</strong><div class="quiz-options"><button class="quiz-option" type="button" data-value="ide">AI 编程 IDE</button><button class="quiz-option" type="button" data-value="claude">Claude Code</button><button class="quiz-option" type="button" data-value="claw">OpenClaw</button></div></div>
+                <div class="quiz-row" data-answer="claw"><strong>第 3 题 · 想从手机飞书远程指挥电脑处理工作</strong><div class="quiz-options"><button class="quiz-option" type="button" data-value="ide">AI 编程 IDE</button><button class="quiz-option" type="button" data-value="claude">Claude Code</button><button class="quiz-option" type="button" data-value="claw">OpenClaw</button></div></div>
+                <div class="quiz-row" data-answer="repo"><strong>第 4 题 · 想云端保存代码、记录历史并分享给别人</strong><div class="quiz-options"><button class="quiz-option" type="button" data-value="repo">GitHub / Gitee</button><button class="quiz-option" type="button" data-value="vercel">Vercel</button><button class="quiz-option" type="button" data-value="cloud">腾讯云 / 阿里云</button></div></div>
+                <div class="quiz-row" data-answer="vercel"><strong>第 5 题 · 想最快把一个网页变成全球可访问链接</strong><div class="quiz-options"><button class="quiz-option" type="button" data-value="repo">GitHub / Gitee</button><button class="quiz-option" type="button" data-value="vercel">Vercel</button><button class="quiz-option" type="button" data-value="cloud">腾讯云 / 阿里云</button></div></div>
+              </div><div class="lab-actions"><button class="action" type="button" id="checkTools">检查答案</button></div><div class="feedback" id="toolsFeedback">完成五道题后，点击“检查答案”。</div></div>
+              <div class="tip">这一关先建立概念即可。后面的课程会继续带你安装工具、保存仓库并部署分享。</div>
+            </section>
+
+            <section class="finish"><div class="finish-badge">◎</div><h2 id="finishTitle">概念装备待装箱</h2><p id="finishText">读完六组概念即可通关。互动用于检查理解，不会阻止你继续。</p><div class="finish-actions"><button class="action" type="button" id="finishBtn">完成第三关</button><a class="action secondary" href="prd.html">返回第二关</a><a class="action secondary" href="home.html">返回新手村</a></div></section>
+          </div>
+        </div>
+      </main>
+    </div>
+    <div class="toast" id="toast" role="status"></div>
+    <script>
+      const STORAGE_KEY = "newbie-village-ai-basics-v1";
+      const LAB_KEY = "newbie-village-ai-basics-labs-v1";
+      const labs = new Set(JSON.parse(localStorage.getItem(LAB_KEY) || "[]"));
+      const signalText = document.querySelector("#signalText");
+      const signalFill = document.querySelector("#signalFill");
+      const toast = document.querySelector("#toast");
+      function saveLabs() { localStorage.setItem(LAB_KEY, JSON.stringify([...labs])); signalText.textContent = `${labs.size} / 3`; signalFill.style.width = `${labs.size / 3 * 100}%`; document.querySelectorAll(".lab").forEach((lab) => { if (labs.has(lab.dataset.lab)) lab.querySelector(".lab-count").textContent = "已完成 ✓"; }); }
+      function completeLab(name) { labs.add(name); saveLabs(); }
+      function resetFeedback(element, message) { element.className = "feedback"; element.textContent = message; }
+      function armCheck(button, ready) { button.classList.toggle("ready", ready); }
+      function showToast(text) { toast.textContent = text; toast.classList.add("show"); setTimeout(() => toast.classList.remove("show"), 2200); }
+      saveLabs();
+
+      const keyChoices = [...document.querySelectorAll("[data-lab='key'] .choice")];
+      const checkKey = document.querySelector("#checkKey");
+      keyChoices.forEach((button) => button.addEventListener("click", () => { keyChoices.forEach((item) => item.classList.remove("correct", "wrong")); button.classList.toggle("selected"); resetFeedback(document.querySelector("#keyFeedback"), "选择完成后，点击“检查答案”。"); armCheck(checkKey, keyChoices.some((item) => item.classList.contains("selected"))); }));
+      checkKey.addEventListener("click", () => { const selected = keyChoices.filter((item) => item.classList.contains("selected")); const feedback = document.querySelector("#keyFeedback"); if (!selected.length) { feedback.className = "feedback try"; feedback.textContent = "请先选择答案。"; return; } const exact = selected.length === 3 && selected.every((item) => item.dataset.correct === "true"); keyChoices.forEach((item) => { const picked = item.classList.contains("selected"); if (picked) item.classList.add(item.dataset.correct === "true" ? "correct" : "wrong"); else if (item.dataset.correct === "true" && !exact) item.classList.add("wrong"); }); feedback.className = `feedback ${exact ? "good" : "try"}`; feedback.textContent = exact ? "全部正确！API Key 像密码，不公开；泄露后要立即作废。" : "还有不安全的做法。记住：不发群、不进截图，泄露就立即换新。"; armCheck(checkKey, false); completeLab("key"); });
+
+      const classifyRows = [...document.querySelectorAll(".classify-row")];
+      const checkFive = document.querySelector("#checkFive");
+      function resetFive() { document.querySelectorAll(".category-option").forEach((button) => button.classList.remove("correct", "wrong")); resetFeedback(document.querySelector("#fiveFeedback"), "完成五道题后，点击“检查答案”。"); armCheck(checkFive, classifyRows.every((row) => row.dataset.selected)); }
+      document.querySelectorAll(".category-option").forEach((button) => button.addEventListener("click", () => { const row = button.closest(".classify-row"); row.dataset.selected = button.dataset.value; row.querySelectorAll(".category-option").forEach((item) => item.classList.toggle("selected", item === button)); resetFive(); }));
+      checkFive.addEventListener("click", () => { const feedback = document.querySelector("#fiveFeedback"); const unanswered = classifyRows.map((row, index) => row.dataset.selected ? null : index + 1).filter(Boolean); if (unanswered.length) { feedback.className = "feedback try"; feedback.textContent = `请先完成第 ${unanswered.join("、")} 题。`; return; } const wrong = []; classifyRows.forEach((row, index) => { const correct = row.dataset.selected === row.dataset.answer; row.querySelector(`[data-value="${row.dataset.selected}"]`).classList.add(correct ? "correct" : "wrong"); if (!correct) wrong.push(index + 1); }); feedback.className = `feedback ${wrong.length ? "try" : "good"}`; feedback.textContent = wrong.length ? `答错的是第 ${wrong.join("、")} 题。Terminal 是指挥系统；Python、Node.js 是引擎；Git、GitHub 管理和传承代码。` : "5/5 全部正确！开发五件套已经归位。"; armCheck(checkFive, false); completeLab("five"); });
+
+      const toolRows = [...document.querySelectorAll(".quiz-row")];
+      const checkTools = document.querySelector("#checkTools");
+      function resetTools() { document.querySelectorAll(".quiz-option").forEach((button) => button.classList.remove("correct", "wrong")); resetFeedback(document.querySelector("#toolsFeedback"), "完成五道题后，点击“检查答案”。"); armCheck(checkTools, toolRows.every((row) => row.dataset.selected)); }
+      document.querySelectorAll(".quiz-option").forEach((button) => button.addEventListener("click", () => { const row = button.closest(".quiz-row"); row.dataset.selected = button.dataset.value; row.querySelectorAll(".quiz-option").forEach((item) => item.classList.toggle("selected", item === button)); resetTools(); }));
+      checkTools.addEventListener("click", () => { const feedback = document.querySelector("#toolsFeedback"); const unanswered = toolRows.map((row, index) => row.dataset.selected ? null : index + 1).filter(Boolean); if (unanswered.length) { feedback.className = "feedback try"; feedback.textContent = `请先完成第 ${unanswered.join("、")} 题。`; return; } const wrong = []; toolRows.forEach((row, index) => { const correct = row.dataset.selected === row.dataset.answer; row.querySelector(`[data-value="${row.dataset.selected}"]`).classList.add(correct ? "correct" : "wrong"); if (!correct) wrong.push(index + 1); }); feedback.className = `feedback ${wrong.length ? "try" : "good"}`; feedback.textContent = wrong.length ? `答错的是第 ${wrong.join("、")} 题。重新选择后会恢复白色，再检查一次即可。` : "5/5 全部正确！你已经能按任务挑选合适工具。"; armCheck(checkTools, false); completeLab("tools"); });
+
+      const finishBtn = document.querySelector("#finishBtn");
+      function renderFinish() { if (localStorage.getItem(STORAGE_KEY)) { document.querySelector("#finishTitle").textContent = "概念装备已装箱"; document.querySelector("#finishText").textContent = "你已经完成 AI 基础概念扫盲，之后遇到这些词可以回到本关快速复习。"; finishBtn.textContent = "已完成 ✓"; } }
+      finishBtn.addEventListener("click", () => { localStorage.setItem(STORAGE_KEY, "done"); renderFinish(); showToast("第三关完成：AI 基础概念扫盲"); });
+      renderFinish();
+    </script>
+  </body>
+</html>

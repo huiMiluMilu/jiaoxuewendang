@@ -466,7 +466,7 @@
         </a>
         <span class="identity" id="identity">身份：见习造物师</span>
         <div class="xp" aria-label="冒险进度">
-          <div class="xp-label"><span>冒险进度</span><span id="xpText">0 / 200 XP</span></div>
+          <div class="xp-label"><span>冒险进度</span><span id="xpText">0 / 300 XP</span></div>
           <div class="xp-track"><div class="xp-fill" id="xpFill"></div></div>
         </div>
       </header>
@@ -502,7 +502,7 @@
           <div class="map-header">
             <div>
               <h2 id="mapTitle">新手村冒险地图</h2>
-              <p>前两关已经开放。迷雾后的玩法，我们一关一关共创。</p>
+              <p>前三关已经开放。迷雾后的玩法，我们一关一关共创。</p>
             </div>
             <div class="legend" aria-label="地图图例"><span>可进入</span><span>待共创</span></div>
           </div>
@@ -526,12 +526,12 @@
               <div class="level-meta"><span>概念学习 · 3 个互动</span><span class="status" data-status="prd">进入关卡 →</span></div>
             </a>
 
-            <article class="level locked l3" data-level="LEVEL 03">
-              <span class="level-icon" aria-hidden="true">🔭</span>
-              <h3>大模型实验室</h3>
-              <p>下一块已知地图：看看 AI 的能力从哪里来。</p>
-              <div class="level-meta"><span>下一关讨论</span><span class="status">迷雾中 🔒</span></div>
-            </article>
+            <a class="level playable l3" href="concepts.html" data-level="LEVEL 03">
+              <span class="level-icon" aria-hidden="true">🧠</span>
+              <h3>AI 基础概念扫盲</h3>
+              <p>认识大模型、API Key、开发五件套、数字特工、代码仓库与部署平台。</p>
+              <div class="level-meta"><span>概念学习 · 3 个互动</span><span class="status" data-status="concepts">进入关卡 →</span></div>
+            </a>
 
             <article class="level locked l4" data-level="LEVEL 04">
               <span class="level-icon" aria-hidden="true">🎒</span>
@@ -577,14 +577,15 @@
       const keys = {
         vibe: "newbie-village-network-setup-v1",
         prd: "newbie-village-vibe-basics-v1",
+        concepts: "newbie-village-ai-basics-v1",
         role: "newbie-village-role",
       };
 
-      const completed = [localStorage.getItem(keys.vibe), localStorage.getItem(keys.prd)].filter(Boolean).length;
+      const completed = [localStorage.getItem(keys.vibe), localStorage.getItem(keys.prd), localStorage.getItem(keys.concepts)].filter(Boolean).length;
       const xp = completed * 100;
-      document.querySelector("#xpText").textContent = `${xp} / 200 XP`;
+      document.querySelector("#xpText").textContent = `${xp} / 300 XP`;
       requestAnimationFrame(() => {
-        document.querySelector("#xpFill").style.width = `${completed * 50}%`;
+        document.querySelector("#xpFill").style.width = `${completed / 3 * 100}%`;
       });
 
       if (localStorage.getItem(keys.vibe)) {
@@ -597,6 +598,12 @@
         const card = document.querySelector(".l2");
         card.classList.add("done");
         card.querySelector('[data-status="prd"]').textContent = "已通关 ✓";
+      }
+
+      if (localStorage.getItem(keys.concepts)) {
+        const card = document.querySelector(".l3");
+        card.classList.add("done");
+        card.querySelector('[data-status="concepts"]').textContent = "已通关 ✓";
       }
 
       const identity = document.querySelector("#identity");
