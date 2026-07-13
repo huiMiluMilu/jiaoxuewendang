@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#101a2b" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23101a2b'/%3E%3Cpath d='M15 19h34M15 32h23M15 45h30' stroke='%23bff44b' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E" />
+    <title>第二关 · Vibe Coding 基础扫盲</title>
+    <style>
+      :root { --night:#101a2b; --night-2:#18263b; --paper:#fffdf6; --ink:#14253a; --muted:#667382; --line:#18304a; --lime:#bff44b; --cyan:#4ed7dd; --orange:#ff8158; --shadow:7px 8px 0 rgba(16,26,43,.15); }
+      * { box-sizing:border-box; }
+      html { scroll-behavior:smooth; }
+      body { margin:0; color:var(--ink); font-family:"Avenir Next","PingFang SC","Microsoft YaHei",sans-serif; background:linear-gradient(rgba(24,48,74,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(24,48,74,.045) 1px,transparent 1px),#e9e5d8; background-size:24px 24px; }
+      button,a { font:inherit; } button { color:inherit; } a { color:inherit; text-decoration:none; } img { display:block; max-width:100%; }
+      .shell { width:min(1380px,calc(100% - 20px)); margin:0 auto; padding:16px 0 54px; }
+      .topbar { position:sticky; top:10px; z-index:30; display:grid; grid-template-columns:1fr auto auto; gap:18px; align-items:center; padding:10px 13px; border:2px solid var(--night); border-radius:16px; background:rgba(255,253,246,.92); box-shadow:0 6px 0 rgba(16,26,43,.14); backdrop-filter:blur(12px); }
+      .home-link { display:inline-flex; gap:9px; align-items:center; font-size:13px; font-weight:900; }
+      .home-icon { display:grid; width:34px; height:34px; place-items:center; border-radius:10px; background:var(--night); color:var(--lime); }
+      .stage-pill { padding:6px 10px; border:1.5px solid var(--line); border-radius:999px; background:#fff; font-size:12px; font-weight:900; }
+      .signal { min-width:175px; } .signal-label { display:flex; justify-content:space-between; margin-bottom:5px; font-size:11px; font-weight:900; }
+      .signal-track { height:9px; overflow:hidden; border:1.5px solid var(--night); border-radius:999px; background:#d9d8cf; } .signal-fill { width:0; height:100%; background:linear-gradient(90deg,var(--cyan),var(--lime)); transition:width 350ms ease; }
+      .hero { position:relative; overflow:hidden; display:grid; grid-template-columns:minmax(0,1.08fr) minmax(310px,.92fr); gap:26px; margin:24px 0 18px; padding:clamp(28px,5vw,58px); border:2px solid var(--night); border-radius:30px 30px 30px 8px; background:var(--night); box-shadow:9px 10px 0 rgba(16,26,43,.15); color:#f8f6ed; }
+      .hero::after { position:absolute; right:-100px; bottom:-180px; width:480px; height:480px; border:64px solid rgba(191,244,75,.09); border-radius:50%; content:""; }
+      .hero-copy,.brief { position:relative; z-index:1; }
+      .kicker { display:inline-flex; gap:8px; align-items:center; margin-bottom:18px; padding:7px 10px; border:1.5px solid var(--lime); border-radius:999px; color:var(--lime); font-size:12px; font-weight:900; letter-spacing:.08em; }
+      h1,h2,h3,p { margin-top:0; } h1 { max-width:780px; margin-bottom:18px; font-size:clamp(45px,6.3vw,78px); line-height:.98; letter-spacing:-.055em; }
+      .hero-copy>p { max-width:680px; margin-bottom:23px; color:#c8d3de; font-size:17px; line-height:1.8; }
+      .hero-meta { display:flex; flex-wrap:wrap; gap:9px; } .hero-meta span { padding:7px 10px; border:1px solid #617084; border-radius:999px; color:#dfe7ed; font-size:12px; font-weight:800; }
+      .brief { align-self:center; padding:23px; border:1.5px solid #527084; border-radius:22px; background:rgba(20,42,60,.74); }
+      .brief small { display:block; color:#99aabd; font-weight:800; letter-spacing:.08em; } .brief strong { display:block; margin:4px 0 12px; font-size:18px; }
+      .brief ol { margin:0; padding-left:21px; color:#d7e0e8; font-size:13px; line-height:1.8; }
+      .layout { display:grid; grid-template-columns:220px minmax(0,1fr); gap:18px; align-items:start; }
+      .side-nav { position:sticky; top:88px; padding:16px; border:2px solid var(--night); border-radius:20px; background:var(--paper); box-shadow:var(--shadow); }
+      .side-nav strong { display:block; margin-bottom:12px; font-size:13px; } .side-nav a { display:flex; gap:9px; align-items:center; padding:10px; border-radius:10px; color:var(--muted); font-size:12px; font-weight:800; } .side-nav a:hover { background:#e9f1df; color:var(--ink); }
+      .nav-num { display:grid; width:22px; height:22px; flex:0 0 auto; place-items:center; border-radius:7px; background:var(--night); color:var(--lime); font-size:10px; }
+      .content { display:grid; gap:18px; } .lesson-card { padding:clamp(20px,4vw,34px); border:2px solid var(--night); border-radius:24px 24px 24px 7px; background:var(--paper); box-shadow:var(--shadow); scroll-margin-top:92px; }
+      .section-tag { display:inline-block; margin-bottom:12px; color:#297683; font-size:11px; font-weight:1000; letter-spacing:.12em; } .lesson-card h2 { margin-bottom:12px; font-size:clamp(27px,4vw,40px); line-height:1.12; letter-spacing:-.035em; }
+      .lesson-card>p,.copy p,.copy li { color:var(--muted); line-height:1.75; }
+      .compare { display:grid; grid-template-columns:1fr auto 1fr; gap:12px; align-items:stretch; margin:20px 0; } .compare-card { padding:18px; border:2px solid var(--line); border-radius:16px; background:#f3f0e7; } .compare-card.now { background:#eff8d8; } .compare-card strong { display:block; margin-bottom:8px; } .compare-card p { margin:0; color:var(--muted); line-height:1.65; } .compare-arrow { align-self:center; font-size:28px; font-weight:1000; }
+      .shot-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:18px; } .shot { overflow:hidden; border:2px solid var(--night); border-radius:15px; background:#eef0f0; } .shot img { width:100%; height:100%; max-height:600px; object-fit:contain; } .shot figcaption { padding:9px 12px; background:var(--night); color:#dbe3e9; font-size:11px; }
+      .product-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:18px; } .product { padding:19px; border:2px solid var(--line); border-radius:17px; background:#fff; } .product.wide { grid-column:1 / -1; } .product h3 { margin-bottom:8px; } .product p,.product li { color:var(--muted); font-size:13px; line-height:1.65; } .product ul { margin-bottom:0; padding-left:20px; }
+      .tip { margin-top:16px; padding:15px 17px; border:2px solid #675529; border-radius:14px; background:#fff0bd; color:#634719; font-weight:850; line-height:1.65; }
+      .duo { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:18px; } .concept { padding:20px; border:2px solid var(--line); border-radius:17px; background:#fff; } .concept.dynamic,.concept.backend { background:#eef8d8; } .concept h3 { margin-bottom:9px; } .concept li { color:var(--muted); line-height:1.7; }
+      .flow { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:18px; } .flow-step { position:relative; padding:18px; border:2px solid var(--line); border-radius:15px; background:#f1f4f2; } .flow-step b { display:block; margin-bottom:7px; color:#247180; } .flow-step p { margin:0; color:var(--muted); font-size:13px; line-height:1.6; }
+      .lab { margin-top:25px; padding:20px; border:2px solid var(--night); border-radius:18px; background:var(--night-2); color:#f7f6ef; } .lab-head { display:flex; gap:12px; align-items:start; justify-content:space-between; margin-bottom:15px; } .lab-count { flex:0 0 auto; padding:5px 8px; border-radius:999px; background:var(--lime); color:var(--night); font-size:10px; font-weight:1000; } .lab h3 { margin-bottom:5px; font-size:18px; } .lab p { margin-bottom:0; color:#acbbc9; font-size:13px; line-height:1.6; }
+      .action,.queue-card,.match-item,.match-type,.quiz-option { border:2px solid var(--night); cursor:pointer; font-weight:900; transition:transform 140ms ease,box-shadow 140ms ease,background 140ms ease; } .action { display:inline-flex; min-height:44px; align-items:center; justify-content:center; padding:9px 14px; border-radius:11px; background:var(--lime); box-shadow:3px 3px 0 #617085; color:var(--night); } .action.secondary { background:#fff; }
+      .lab-actions { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:14px; } .feedback { min-height:40px; margin-top:13px; padding:10px 12px; border-left:4px solid #6e7c8c; background:rgba(255,255,255,.06); color:#d9e3ea; font-size:13px; line-height:1.6; } .feedback.good { border-color:var(--lime); } .feedback.try { border-color:var(--orange); }
+      .queue-source,.queue-target { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; } .queue-target { min-height:72px; margin:12px 0; padding:9px; border:2px dashed #607185; border-radius:12px; } .queue-target:empty::after { grid-column:1/-1; align-self:center; color:#8393a2; content:"按正确顺序点击卡片"; font-size:12px; text-align:center; }
+      .queue-card { position:relative; padding:11px 11px 11px 36px; border-color:#6d7c8e; border-radius:10px; background:#f3f5f5; color:var(--ink); text-align:left; } .queue-card::before { position:absolute; left:11px; content:attr(data-order); color:#768597; } .queue-target .queue-card { border-color:var(--lime); background:rgba(191,244,75,.16); color:#fff; }
+      .match-items { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; } .match-item { min-height:100px; padding:11px; border-color:#6d7c8e; border-radius:11px; background:#f4f5f2; color:var(--ink); text-align:left; } .match-item.active { border-color:var(--lime); box-shadow:0 0 0 3px rgba(191,244,75,.18); } .match-item span { display:block; margin-top:8px; color:#38757b; font-size:11px; }
+      .match-types { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; } .match-type { padding:9px 11px; border-color:#66758a; border-radius:999px; background:transparent; color:#fff; }
+      .quiz-list { display:grid; gap:13px; } .quiz-row { padding:13px; border:1.5px solid #596b80; border-radius:12px; } .quiz-row strong { display:block; margin-bottom:9px; } .quiz-options { display:flex; flex-wrap:wrap; gap:8px; } .quiz-option { padding:8px 11px; border-color:#66758a; border-radius:9px; background:transparent; color:#fff; } .quiz-option.selected { border-color:var(--lime); background:rgba(191,244,75,.14); color:var(--lime); }
+      .finish { padding:27px; border:2px solid var(--night); border-radius:22px; background:var(--night); color:#fff; text-align:center; } .finish-badge { display:grid; width:74px; height:74px; margin:0 auto 14px; place-items:center; border:2px solid var(--lime); border-radius:50%; color:var(--lime); font-size:34px; } .finish h2 { margin-bottom:8px; } .finish p { max-width:650px; margin:0 auto 18px; color:#aebdcc; line-height:1.7; } .finish-actions { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+      .toast { position:fixed; right:18px; bottom:18px; z-index:50; max-width:320px; padding:12px 15px; border:2px solid var(--night); border-radius:12px; background:var(--lime); box-shadow:4px 4px 0 var(--night); font-size:13px; font-weight:900; transform:translateY(130%); transition:transform 220ms ease; } .toast.show { transform:translateY(0); }
+      @media(max-width:950px) { .hero{grid-template-columns:1fr}.layout{grid-template-columns:1fr}.side-nav{position:static;display:flex;overflow-x:auto;gap:4px}.side-nav strong{display:none}.side-nav a{flex:0 0 auto}.match-items{grid-template-columns:repeat(3,1fr)} }
+      @media(max-width:620px) { .shell{width:min(100% - 20px,1380px)}.topbar{grid-template-columns:1fr auto}.stage-pill{display:none}.signal{min-width:120px}.hero{padding:26px 20px}h1{font-size:43px}.compare,.shot-grid,.product-grid,.duo,.flow,.queue-source,.queue-target,.match-items{grid-template-columns:1fr}.compare-arrow{transform:rotate(90deg);justify-self:center}.product.wide{grid-column:auto}.lesson-card{padding:20px 16px} }
+      @media(prefers-reduced-motion:reduce) { *,*::before,*::after{scroll-behavior:auto!important;transition:none!important} }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <header class="topbar">
+        <a class="home-link" href="home.html"><span class="home-icon">←</span><span>返回新手村</span></a>
+        <span class="stage-pill">LEVEL 02 · 概念补给站</span>
+        <div class="signal"><div class="signal-label"><span>理解信号</span><span id="signalText">0 / 3</span></div><div class="signal-track"><div class="signal-fill" id="signalFill"></div></div></div>
+      </header>
+
+      <main>
+        <section class="hero">
+          <div class="hero-copy"><span class="kicker">● 第二关 · 建立开发世界地图</span><h1>Vibe Coding<br />基础小白扫盲</h1><p>先不用背术语。你会看懂 AI 应用怎么开发、常见产品长什么样，以及前端、后端、静态、动态到底在说什么。</p><div class="hero-meta"><span>5 组核心概念</span><span>4 张原始图解</span><span>3 个轻互动</span></div></div>
+          <aside class="brief"><small>本关通关目标</small><strong>能用自己的话解释这些区别</strong><ol><li>Vibe Coding 与传统开发</li><li>网页、App、Web App、小程序</li><li>静态、动态、前端、后端</li></ol></aside>
+        </section>
+
+        <div class="layout">
+          <nav class="side-nav"><strong>任务路线</strong><a href="#vibe"><span class="nav-num">01</span>Vibe Coding</a><a href="#products"><span class="nav-num">02</span>产品形态</a><a href="#static"><span class="nav-num">03</span>静态与动态</a><a href="#fullstack"><span class="nav-num">04</span>前端与后端</a></nav>
+
+          <div class="content">
+            <section class="lesson-card" id="vibe">
+              <span class="section-tag">01 · VIBE CODING</span><h2>从“写代码”变成“指导 AI”</h2>
+              <p>我们把 <strong>AI 应用开发</strong>称为 Vibe Coding（氛围编程）：用自然语言开发软件，而不是自己手写每一行代码。你的角色从单纯的开发者，变成产品设计者和 AI 指导者。</p>
+              <div class="compare"><article class="compare-card"><strong>以前 · 手写开发</strong><p>需要自己一行一行写代码，把功能实现出来。</p></article><span class="compare-arrow">→</span><article class="compare-card now"><strong>现在 · Vibe Coding</strong><p>告诉 AI：“帮我做一个 XX 功能的网页或 App”，AI 生成代码并协助完成开发。</p></article></div>
+              <h3>AI Coding 的基础流程</h3><p>先和 AI 对话梳理产品需求文档（PRD），再让 AI 根据 PRD 制定开发计划，最后开始开发。</p>
+              <div class="shot-grid"><figure class="shot"><img src="lesson2-assets/ai-coding-flow-1.jpg" alt="AI应用开发完整流程图" /><figcaption>完整流程：梳理 PRD → 生成开发计划 → 开发上线。</figcaption></figure><figure class="shot"><img src="lesson2-assets/ai-coding-flow-2.png" alt="AI应用开发三步流程图" /><figcaption>记住三个动作：说清需求、制定计划、开始开发。</figcaption></figure></div>
+              <div class="lab" data-lab="flow"><div class="lab-head"><div><h3>互动 1 · 排好 AI 开发流程</h3><p>按正确顺序点击三张卡片。</p></div><span class="lab-count">+1 信号</span></div><div class="queue-source" id="flowSource"><button class="queue-card" type="button" data-step="2" data-order="?">开始开发</button><button class="queue-card" type="button" data-step="0" data-order="?">梳理 PRD</button><button class="queue-card" type="button" data-step="1" data-order="?">制定开发计划</button></div><div class="queue-target" id="flowTarget"></div><div class="lab-actions"><button class="action" type="button" id="checkFlow">检查顺序</button><button class="action secondary" type="button" id="resetFlow">重新排列</button></div><div class="feedback" id="flowFeedback">先把三张卡片全部放入流程。</div></div>
+            </section>
+
+            <section class="lesson-card" id="products">
+              <span class="section-tag">02 · PRODUCT TYPES</span><h2>常见产品形态</h2><p>生活中的软件像不同类型的“店铺”，会根据使用场景选择不同形态。</p>
+              <div class="product-grid">
+                <article class="product wide"><h3>网页 Webpage</h3><p>运行在浏览器里的程序界面。输入网址即可打开，不需要安装。</p><ul><li>浏览器把背后的代码“翻译”成文字、图片和按钮。</li><li>核心特点：即开即看，关闭就走。</li></ul><figure class="shot"><img src="lesson2-assets/webpage-example.png" alt="百度网页示例" /><figcaption>百度：在浏览器中输入网址后打开的网页。</figcaption></figure></article>
+                <article class="product"><h3>手机原生应用 Native App</h3><p>从 App Store 或安卓应用市场下载并安装。</p><ul><li>能更顺畅调用摄像头、麦克风、GPS。</li><li>例子：微信、抖音、支付宝。</li></ul></article>
+                <article class="product"><h3>桌面应用 Desktop App</h3><p>安装在 Windows 或 Mac 电脑上的软件。</p><ul><li>性能最强，适合复杂创作和大型任务。</li><li>例子：Word、飞书、PS、PR、Steam 游戏。</li></ul></article>
+                <article class="product"><h3>Web App</h3><p>看起来像 App，实际仍通过浏览器打开，不用安装。</p><ul><li>兼顾网页免安装和 App 的流畅交互。</li><li>例子：腾讯文档、Figma、在线版 PS、网页点单。</li></ul></article>
+                <article class="product"><h3>小程序 Mini Program</h3><p>藏在微信、支付宝、抖音等“超级 App”里的微型应用。</p><ul><li>用完即走，不占太多存储。</li><li>例子：喜茶点单、微信小游戏、美团微信端。</li></ul></article>
+              </div>
+              <figure class="shot"><img src="lesson2-assets/desktop-apps.png" alt="电脑中安装的桌面应用示例" /><figcaption>桌面应用：需要安装到电脑系统中，图中包括 Chrome、飞书、微信、Codex 等。</figcaption></figure>
+              <div class="tip">💻 初学者不用一上来就挑战 App、小程序或复杂 Web App。里面的坑很多，先从网页开始！</div>
+              <div class="lab" data-lab="match"><div class="lab-head"><div><h3>互动 2 · 给产品找到正确身份</h3><p>先点一个例子，再点它所属的产品形态。</p></div><span class="lab-count">+1 信号</span></div><div class="match-items" id="matchItems"><button class="match-item" type="button" data-answer="webpage">百度官网<span>尚未分类</span></button><button class="match-item" type="button" data-answer="native">微信手机端<span>尚未分类</span></button><button class="match-item" type="button" data-answer="desktop">Photoshop 电脑版<span>尚未分类</span></button><button class="match-item" type="button" data-answer="webapp">腾讯文档网页版<span>尚未分类</span></button><button class="match-item" type="button" data-answer="mini">喜茶微信点单<span>尚未分类</span></button></div><div class="match-types"><button class="match-type" type="button" data-type="webpage">网页</button><button class="match-type" type="button" data-type="native">手机原生 App</button><button class="match-type" type="button" data-type="desktop">桌面应用</button><button class="match-type" type="button" data-type="webapp">Web App</button><button class="match-type" type="button" data-type="mini">小程序</button></div><div class="lab-actions"><button class="action" type="button" id="checkMatch">检查匹配</button></div><div class="feedback" id="matchFeedback">先选择一个例子开始匹配。</div></div>
+            </section>
+
+            <section class="lesson-card" id="static">
+              <span class="section-tag">03 · STATIC / DYNAMIC</span><h2>静态应用 vs 动态应用</h2><p>任何产品形态，都可以从技术原理上再分成静态和动态。</p>
+              <div class="duo"><article class="concept"><h3>静态 Static 📄</h3><ul><li>内容基本不变，像一张电子传单。</li><li>所有人打开看到的内容都一样。</li><li>适合个人介绍页、产品宣传页、活动规则页。</li></ul></article><article class="concept dynamic"><h3>动态 Dynamic 🔄</h3><ul><li>根据不同的人、时间和操作展示不同内容。</li><li>背后有数据库这个“隐形仓库”。</li><li>例子：淘宝推荐、小红书内容、手机银行余额。</li></ul></article></div>
+              <div class="tip">记忆法：静态像路边海报，谁看都一样；动态像餐厅定制点单，会根据你的要求做出不同结果。</div>
+            </section>
+
+            <section class="lesson-card" id="fullstack">
+              <span class="section-tag">04 · FRONTEND / BACKEND</span><h2>前端与后端怎么配合？</h2><p>开发一个完整的软件，通常需要两种技术配合。继续用“去餐厅吃饭”来理解。</p>
+              <div class="duo"><article class="concept"><h3>前端 Frontend 🍽️</h3><ul><li>用户看得到、点得到的界面、文字、图片、按钮和动画。</li><li>负责界面好看、好用，并接收用户操作。</li><li>像餐厅的大堂、菜单和服务员。</li></ul></article><article class="concept backend"><h3>后端 Backend 👨‍🍳</h3><ul><li>藏在界面背后的服务器和数据库。</li><li>负责业务逻辑、密码验证、数据存储等核心工作。</li><li>像餐厅的后厨和食材仓库。</li></ul></article></div>
+              <h3>一次点赞的完整流程</h3><div class="flow"><article class="flow-step"><b>1 · 前端响应</b><p>用户点击心形按钮，前端立刻把空心图标变成红心，并告诉后端谁点了赞。</p></article><article class="flow-step"><b>2 · 后端记录</b><p>服务器收到信息，在数据库里给对应用户记录“点赞 +1”。</p></article><article class="flow-step"><b>3 · 闭环展示</b><p>后端返回记录成功，下次打开时，前端把最新点赞结果展示出来。</p></article></div>
+              <div class="tip">✨ 如果一个人既能搞定前端大堂，又能处理后端厨房，就是“全栈工程师 Full Stack”，相当于自己开了一家店。</div>
+              <div class="lab" data-lab="final"><div class="lab-head"><div><h3>互动 3 · 最终概念检查</h3><p>完成 4 个情境判断，一次检查静态、动态、前端和后端。</p></div><span class="lab-count">+1 信号</span></div><div class="quiz-list">
+                <div class="quiz-row" data-answer="static"><strong>公司宣传页，所有人打开都看到同一内容</strong><div class="quiz-options"><button class="quiz-option" type="button" data-value="static">静态</button><button class="quiz-option" type="button" data-value="dynamic">动态</button></div></div>
+                <div class="quiz-row" data-answer="dynamic"><strong>手机银行登录后显示每个人自己的余额</strong><div class="quiz-options"><button class="quiz-option" type="button" data-value="static">静态</button><button class="quiz-option" type="button" data-value="dynamic">动态</button></div></div>
+                <div class="quiz-row" data-answer="frontend"><strong>点击点赞按钮后，空心图标立刻变成红心</strong><div class="quiz-options"><button class="quiz-option" type="button" data-value="frontend">前端</button><button class="quiz-option" type="button" data-value="backend">后端</button></div></div>
+                <div class="quiz-row" data-answer="backend"><strong>把“张三给李四点赞”记录进数据库</strong><div class="quiz-options"><button class="quiz-option" type="button" data-value="frontend">前端</button><button class="quiz-option" type="button" data-value="backend">后端</button></div></div>
+              </div><div class="lab-actions"><button class="action" type="button" id="checkFinal">检查答案</button></div><div class="feedback" id="finalFeedback">每个情境选择一个答案。</div></div>
+            </section>
+
+            <section class="finish"><div class="finish-badge">◎</div><h2 id="finishTitle">概念地图待收录</h2><p id="finishText">完成学习后即可通关。互动用于检查理解，不会阻止你继续。</p><div class="finish-actions"><button class="action" type="button" id="finishBtn">完成第二关</button><a class="action secondary" href="index.html">返回第一关</a><a class="action secondary" href="home.html">返回新手村</a></div></section>
+          </div>
+        </div>
+      </main>
+    </div>
+    <div class="toast" id="toast" role="status"></div>
+    <script>
+      const STORAGE_KEY="newbie-village-vibe-basics-v1";
+      const LAB_KEY="newbie-village-vibe-basics-labs-v1";
+      const labs=new Set(JSON.parse(localStorage.getItem(LAB_KEY)||"[]"));
+      const signalText=document.querySelector("#signalText"); const signalFill=document.querySelector("#signalFill"); const toast=document.querySelector("#toast");
+      function saveLabs(){localStorage.setItem(LAB_KEY,JSON.stringify([...labs]));signalText.textContent=`${labs.size} / 3`;signalFill.style.width=`${labs.size/3*100}%`;document.querySelectorAll(".lab").forEach(lab=>{if(labs.has(lab.dataset.lab))lab.querySelector(".lab-count").textContent="已完成 ✓";});}
+      function completeLab(name){labs.add(name);saveLabs();} function showToast(text){toast.textContent=text;toast.classList.add("show");setTimeout(()=>toast.classList.remove("show"),2200);} saveLabs();
+
+      const flowSource=document.querySelector("#flowSource"),flowTarget=document.querySelector("#flowTarget");
+      function updateFlow(){[...flowTarget.children].forEach((item,i)=>item.dataset.order=i+1);[...flowSource.children].forEach(item=>item.dataset.order="?");}
+      document.querySelectorAll(".queue-card").forEach(card=>card.addEventListener("click",()=>{(card.parentElement===flowSource?flowTarget:flowSource).append(card);updateFlow();}));
+      document.querySelector("#resetFlow").addEventListener("click",()=>{[...flowTarget.children].forEach(item=>flowSource.append(item));updateFlow();document.querySelector("#flowFeedback").textContent="已清空，可以重新排列。";});
+      document.querySelector("#checkFlow").addEventListener("click",()=>{const steps=[...flowTarget.children].map(x=>Number(x.dataset.step));const exact=steps.length===3&&steps.every((x,i)=>x===i);const fb=document.querySelector("#flowFeedback");fb.className=`feedback ${exact?"good":"try"}`;fb.textContent=exact?"正确：梳理 PRD → 制定开发计划 → 开始开发。":"顺序还不对。先说清要做什么，再制定执行计划，最后开始开发。";if(steps.length===3)completeLab("flow");});
+
+      let activeMatch=null; const assignments=new Map(); const names={webpage:"网页",native:"手机原生 App",desktop:"桌面应用",webapp:"Web App",mini:"小程序"};
+      document.querySelectorAll(".match-item").forEach(item=>item.addEventListener("click",()=>{document.querySelectorAll(".match-item").forEach(x=>x.classList.toggle("active",x===item));activeMatch=item;}));
+      document.querySelectorAll(".match-type").forEach(type=>type.addEventListener("click",()=>{if(!activeMatch){document.querySelector("#matchFeedback").textContent="请先点选上方的一个例子。";return;}assignments.set(activeMatch,type.dataset.type);activeMatch.querySelector("span").textContent=`已选：${names[type.dataset.type]}`;activeMatch.classList.remove("active");activeMatch=null;}));
+      document.querySelector("#checkMatch").addEventListener("click",()=>{const items=[...document.querySelectorAll(".match-item")];const done=items.every(x=>assignments.has(x));const exact=done&&items.every(x=>assignments.get(x)===x.dataset.answer);const fb=document.querySelector("#matchFeedback");fb.className=`feedback ${exact?"good":"try"}`;fb.textContent=exact?"全部匹配正确！你已经能区分五种产品形态。":done?"还有匹配不正确：留意‘是否安装、从哪里打开、运行在哪个设备’。":"还没有完成全部匹配。";if(done)completeLab("match");});
+
+      document.querySelectorAll(".quiz-option").forEach(btn=>btn.addEventListener("click",()=>{const row=btn.closest(".quiz-row");row.dataset.selected=btn.dataset.value;row.querySelectorAll(".quiz-option").forEach(x=>x.classList.toggle("selected",x===btn));}));
+      document.querySelector("#checkFinal").addEventListener("click",()=>{const rows=[...document.querySelectorAll(".quiz-row")];const done=rows.every(x=>x.dataset.selected);const score=rows.filter(x=>x.dataset.selected===x.dataset.answer).length;const fb=document.querySelector("#finalFeedback");fb.className=`feedback ${score===4?"good":"try"}`;fb.textContent=done?(score===4?"4/4 全部正确！静态/动态和前端/后端已经分清。":`${score}/4 正确。记住：是否因人变化看静态/动态；用户看得到的界面是前端，数据处理和存储是后端。`):"请先完成四个情境。";if(done)completeLab("final");});
+
+      const finishBtn=document.querySelector("#finishBtn");
+      function renderFinish(){if(localStorage.getItem(STORAGE_KEY)){document.querySelector("#finishTitle").textContent="概念地图已收录";document.querySelector("#finishText").textContent="你已经完成 Vibe Coding 基础扫盲，可以继续探索后面的关卡。";finishBtn.textContent="已完成 ✓";}}
+      finishBtn.addEventListener("click",()=>{localStorage.setItem(STORAGE_KEY,"done");renderFinish();showToast("第二关完成：Vibe Coding 基础扫盲");});renderFinish();
+    </script>
+  </body>
+</html>
