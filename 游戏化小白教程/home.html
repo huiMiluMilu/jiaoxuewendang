@@ -466,7 +466,7 @@
         </a>
         <span class="identity" id="identity">身份：见习造物师</span>
         <div class="xp" aria-label="冒险进度">
-          <div class="xp-label"><span>冒险进度</span><span id="xpText">0 / 300 XP</span></div>
+          <div class="xp-label"><span>冒险进度</span><span id="xpText">0 / 400 XP</span></div>
           <div class="xp-track"><div class="xp-fill" id="xpFill"></div></div>
         </div>
       </header>
@@ -502,7 +502,7 @@
           <div class="map-header">
             <div>
               <h2 id="mapTitle">新手村冒险地图</h2>
-              <p>前三关已经开放。迷雾后的玩法，我们一关一关共创。</p>
+              <p>前四关已经开放。迷雾后的玩法，我们一关一关共创。</p>
             </div>
             <div class="legend" aria-label="地图图例"><span>可进入</span><span>待共创</span></div>
           </div>
@@ -533,12 +533,12 @@
               <div class="level-meta"><span>概念学习 · 3 个互动</span><span class="status" data-status="concepts">进入关卡 →</span></div>
             </a>
 
-            <article class="level locked l4" data-level="LEVEL 04">
+            <a class="level playable l4" href="install-tool.html" data-level="LEVEL 04">
               <span class="level-icon" aria-hidden="true">🎒</span>
-              <h3>工具装备库</h3>
-              <p>认识不同 AI 工具，学会按任务挑装备。</p>
-              <div class="level-meta"><span>玩法待定</span><span class="status">待共创</span></div>
-            </article>
+              <h3>下载你的第一个工具</h3>
+              <p>复习 IDE，比较主流 AI 编程工具，选一个适合自己的工具并完成安装。</p>
+              <div class="level-meta"><span>工具选择 · 3 个互动</span><span class="status" data-status="install">进入关卡 →</span></div>
+            </a>
 
             <article class="level locked l5" data-level="LEVEL 05">
               <span class="level-icon" aria-hidden="true">⛺</span>
@@ -578,14 +578,15 @@
         vibe: "newbie-village-network-setup-v1",
         prd: "newbie-village-vibe-basics-v1",
         concepts: "newbie-village-ai-basics-v1",
+        install: "newbie-village-first-tool-v1",
         role: "newbie-village-role",
       };
 
-      const completed = [localStorage.getItem(keys.vibe), localStorage.getItem(keys.prd), localStorage.getItem(keys.concepts)].filter(Boolean).length;
+      const completed = [localStorage.getItem(keys.vibe), localStorage.getItem(keys.prd), localStorage.getItem(keys.concepts), localStorage.getItem(keys.install)].filter(Boolean).length;
       const xp = completed * 100;
-      document.querySelector("#xpText").textContent = `${xp} / 300 XP`;
+      document.querySelector("#xpText").textContent = `${xp} / 400 XP`;
       requestAnimationFrame(() => {
-        document.querySelector("#xpFill").style.width = `${completed / 3 * 100}%`;
+        document.querySelector("#xpFill").style.width = `${completed / 4 * 100}%`;
       });
 
       if (localStorage.getItem(keys.vibe)) {
@@ -604,6 +605,12 @@
         const card = document.querySelector(".l3");
         card.classList.add("done");
         card.querySelector('[data-status="concepts"]').textContent = "已通关 ✓";
+      }
+
+      if (localStorage.getItem(keys.install)) {
+        const card = document.querySelector(".l4");
+        card.classList.add("done");
+        card.querySelector('[data-status="install"]').textContent = "已通关 ✓";
       }
 
       const identity = document.querySelector("#identity");
