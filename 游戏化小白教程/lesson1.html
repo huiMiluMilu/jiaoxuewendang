@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#101a2b" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23101a2b'/%3E%3Cpath d='M12 35h9l5-13 10 23 6-10h10' fill='none' stroke='%23bff44b' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+    <title>第一关 · 环境准备与网络配置</title>
+    <style>
+      :root {
+        --night: #101a2b;
+        --night-2: #18263b;
+        --panel: #f4f0e3;
+        --paper: #fffdf6;
+        --ink: #14253a;
+        --muted: #667382;
+        --line: #18304a;
+        --lime: #bff44b;
+        --cyan: #4ed7dd;
+        --orange: #ff8158;
+        --red: #e95656;
+        --green: #2ca66f;
+        --shadow: 7px 8px 0 rgba(16, 26, 43, 0.15);
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        color: var(--ink);
+        font-family: "Avenir Next", "PingFang SC", "Microsoft YaHei", sans-serif;
+        background:
+          linear-gradient(rgba(24, 48, 74, 0.045) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(24, 48, 74, 0.045) 1px, transparent 1px),
+          #e9e5d8;
+        background-size: 24px 24px;
+      }
+      button, a { font: inherit; }
+      button { color: inherit; }
+      a { color: inherit; text-decoration: none; }
+      img { display: block; max-width: 100%; }
+      [hidden] { display: none !important; }
+
+      .shell { width: min(1380px, calc(100% - 20px)); margin: 0 auto; padding: 16px 0 54px; }
+      .topbar {
+        position: sticky;
+        top: 10px;
+        z-index: 30;
+        display: grid;
+        grid-template-columns: 1fr auto auto;
+        gap: 18px;
+        align-items: center;
+        padding: 10px 13px;
+        border: 2px solid var(--night);
+        border-radius: 16px;
+        background: rgba(255, 253, 246, 0.92);
+        box-shadow: 0 6px 0 rgba(16, 26, 43, 0.14);
+        backdrop-filter: blur(12px);
+      }
+      .home-link { display: inline-flex; gap: 9px; align-items: center; font-size: 13px; font-weight: 900; }
+      .home-icon { display: grid; width: 34px; height: 34px; place-items: center; border-radius: 10px; background: var(--night); color: var(--lime); }
+      .stage-pill { padding: 6px 10px; border: 1.5px solid var(--line); border-radius: 999px; background: #fff; font-size: 12px; font-weight: 900; }
+      .signal { min-width: 175px; }
+      .signal-label { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 11px; font-weight: 900; }
+      .signal-track { height: 9px; overflow: hidden; border: 1.5px solid var(--night); border-radius: 999px; background: #d9d8cf; }
+      .signal-fill { width: 0; height: 100%; background: linear-gradient(90deg, var(--cyan), var(--lime)); transition: width 350ms ease; }
+
+      .hero {
+        position: relative;
+        overflow: hidden;
+        display: grid;
+        grid-template-columns: minmax(0, 1.08fr) minmax(310px, .92fr);
+        gap: 26px;
+        margin: 24px 0 18px;
+        padding: clamp(28px, 5vw, 58px);
+        border: 2px solid var(--night);
+        border-radius: 30px 30px 30px 8px;
+        background: var(--night);
+        box-shadow: 9px 10px 0 rgba(16, 26, 43, .15);
+        color: #f8f6ed;
+      }
+      .hero::after { position: absolute; right: -100px; bottom: -180px; width: 480px; height: 480px; border: 64px solid rgba(78, 215, 221, .1); border-radius: 50%; content: ""; }
+      .hero-copy, .radar { position: relative; z-index: 1; }
+      .kicker { display: inline-flex; gap: 8px; align-items: center; margin-bottom: 18px; padding: 7px 10px; border: 1.5px solid var(--lime); border-radius: 999px; color: var(--lime); font-size: 12px; font-weight: 900; letter-spacing: .08em; }
+      h1, h2, h3, p { margin-top: 0; }
+      h1 { max-width: 700px; margin-bottom: 18px; font-size: clamp(45px, 6.5vw, 80px); line-height: .98; letter-spacing: -.055em; }
+      .hero-copy > p { max-width: 660px; margin-bottom: 23px; color: #c8d3de; font-size: 17px; line-height: 1.8; }
+      .hero-meta { display: flex; flex-wrap: wrap; gap: 9px; }
+      .hero-meta span { padding: 7px 10px; border: 1px solid #617084; border-radius: 999px; color: #dfe7ed; font-size: 12px; font-weight: 800; }
+      .radar { align-self: center; padding: 23px; border: 1.5px solid #527084; border-radius: 22px; background: rgba(20, 42, 60, .74); }
+      .radar-top { display: flex; gap: 12px; align-items: center; margin-bottom: 18px; }
+      .pulse { width: 13px; height: 13px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 0 8px rgba(191, 244, 75, .11), 0 0 24px var(--lime); animation: pulse 1.8s ease-in-out infinite; }
+      .radar small { display: block; color: #99aabd; font-weight: 800; letter-spacing: .08em; }
+      .radar strong { font-size: 18px; }
+      .radar-list { display: grid; gap: 9px; margin: 0; padding: 0; list-style: none; }
+      .radar-list li { display: flex; gap: 9px; color: #d7e0e8; font-size: 13px; line-height: 1.5; }
+      .radar-list li::before { color: var(--cyan); content: "◇"; font-weight: 900; }
+
+      .notice { margin-bottom: 18px; padding: 14px 17px; border: 2px solid #765329; border-radius: 14px; background: #fff1d2; color: #64441f; font-size: 13px; line-height: 1.7; }
+      .layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 18px; align-items: start; }
+      .side-nav { position: sticky; top: 88px; padding: 16px; border: 2px solid var(--night); border-radius: 20px; background: var(--paper); box-shadow: var(--shadow); }
+      .side-nav strong { display: block; margin-bottom: 12px; font-size: 13px; }
+      .side-nav a { display: flex; gap: 9px; align-items: center; padding: 10px; border-radius: 10px; color: var(--muted); font-size: 12px; font-weight: 800; }
+      .side-nav a:hover { background: #e9f1df; color: var(--ink); }
+      .nav-num { display: grid; width: 22px; height: 22px; flex: 0 0 auto; place-items: center; border-radius: 7px; background: var(--night); color: var(--lime); font-size: 10px; }
+      .content { display: grid; gap: 18px; }
+      .lesson-card { padding: clamp(20px, 4vw, 34px); border: 2px solid var(--night); border-radius: 24px 24px 24px 7px; background: var(--paper); box-shadow: var(--shadow); scroll-margin-top: 92px; }
+      .section-tag { display: inline-block; margin-bottom: 12px; color: #297683; font-size: 11px; font-weight: 1000; letter-spacing: .12em; }
+      .lesson-card h2 { margin-bottom: 12px; font-size: clamp(27px, 4vw, 40px); line-height: 1.12; letter-spacing: -.035em; }
+      .lesson-card > p, .copy p { color: var(--muted); line-height: 1.75; }
+      .benefits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
+      .benefit { padding: 16px; border: 1.5px solid var(--line); border-radius: 15px; background: #f0f6e7; }
+      .benefit span { font-size: 24px; }
+      .benefit strong { display: block; margin: 8px 0 5px; }
+      .benefit p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
+
+      .lab { margin-top: 25px; padding: 20px; border: 2px solid var(--night); border-radius: 18px; background: var(--night-2); color: #f7f6ef; }
+      .lab-head { display: flex; gap: 12px; align-items: start; justify-content: space-between; margin-bottom: 15px; }
+      .lab-count { flex: 0 0 auto; padding: 5px 8px; border-radius: 999px; background: var(--lime); color: var(--night); font-size: 10px; font-weight: 1000; }
+      .lab h3 { margin-bottom: 5px; font-size: 18px; }
+      .lab p { margin-bottom: 0; color: #acbbc9; font-size: 13px; line-height: 1.6; }
+      .choices { display: grid; grid-template-columns: repeat(2, 1fr); gap: 9px; }
+      .choice, .action, .os-tab, .scenario-choice, .queue-card { border: 2px solid var(--night); cursor: pointer; font-weight: 900; transition: transform 140ms ease, box-shadow 140ms ease, background 140ms ease; }
+      .choice { padding: 12px; border-color: #617085; border-radius: 11px; background: #fff; color: var(--ink); text-align: left; }
+      .choice.selected, .scenario-choice.selected { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(78, 215, 221, .2); }
+      .choice.correct, .scenario-choice.correct, .queue-card.correct { border-color: #7cab20 !important; background: #dff6aa !important; color: var(--ink) !important; }
+      .choice.wrong, .scenario-choice.wrong, .queue-card.wrong { border-color: var(--orange) !important; background: #ffd2c3 !important; color: var(--ink) !important; }
+      .lab-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 14px; }
+      .action { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; padding: 9px 14px; border-radius: 11px; background: var(--lime); box-shadow: 3px 3px 0 #617085; color: var(--night); }
+      .action.secondary { background: #fff; }
+      .action.ready { animation: check-nudge 850ms ease-in-out infinite; }
+      @keyframes check-nudge { 0%, 100% { box-shadow: 3px 3px 0 #617085, 0 0 0 0 rgba(191,244,75,.45); } 50% { box-shadow: 3px 3px 0 #617085, 0 0 0 7px rgba(191,244,75,0); } }
+      .action:hover, .os-tab:hover, .scenario-choice:hover, .queue-card:hover { transform: translate(1px, 1px); box-shadow: 1px 1px 0 var(--night); }
+      .feedback { min-height: 40px; margin-top: 13px; padding: 10px 12px; border-left: 4px solid #6e7c8c; background: rgba(255,255,255,.06); color: #d9e3ea; font-size: 13px; line-height: 1.6; }
+      .feedback.good { border-color: var(--lime); }
+      .feedback.try { border-color: var(--orange); }
+
+      .os-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 19px 0; }
+      .os-tab { padding: 14px; border-radius: 13px; background: #fff; box-shadow: 3px 3px 0 rgba(16,26,43,.18); }
+      .os-tab.active { background: var(--cyan); }
+      .download-panel { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center; padding: 18px; border: 2px dashed #6d7a87; border-radius: 15px; background: #f0eee6; }
+      .download-panel h3 { margin-bottom: 4px; }
+      .download-panel p { margin: 0; color: var(--muted); font-size: 13px; }
+      .download-actions { display: grid; gap: 8px; justify-items: stretch; text-align: center; }
+      .tiny { margin-top: 12px !important; font-size: 12px !important; }
+
+      .price-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 18px 0; }
+      .price-card { display: flex; flex-direction: column; padding: 18px; border: 2px solid var(--line); border-radius: 16px; background: #fff; }
+      .price-card.featured { background: #eff8d8; }
+      .price-card h3 { margin-bottom: 7px; }
+      .price { margin-bottom: 8px; color: #e15f3c; font-size: 20px; font-weight: 1000; }
+      .price-card p { flex: 1; color: var(--muted); font-size: 13px; line-height: 1.6; }
+      .price-card a { align-self: start; padding-bottom: 2px; border-bottom: 2px solid var(--ink); font-size: 13px; font-weight: 900; }
+      .shot { margin-top: 17px; overflow: hidden; border: 2px solid var(--night); border-radius: 15px; background: #d9dde0; }
+      .shot img { width: 100%; max-height: 660px; object-fit: contain; }
+      .caption { margin: 0; padding: 9px 12px; background: var(--night); color: #dbe3e9; font-size: 11px; }
+
+      .step { display: grid; grid-template-columns: 48px 1fr; gap: 15px; margin-top: 26px; }
+      .step-num { display: grid; width: 45px; height: 45px; place-items: center; border: 2px solid var(--night); border-radius: 14px 14px 14px 4px; background: var(--lime); font-weight: 1000; }
+      .step h3 { margin-bottom: 7px; font-size: 21px; }
+      .step p, .step li { color: var(--muted); line-height: 1.7; }
+      .step ul { padding-left: 20px; }
+      .mode-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 14px 0; }
+      .mode { padding: 14px; border: 1.5px solid var(--line); border-radius: 13px; }
+      .mode.recommended { background: #eef8d8; }
+      .mode strong { display: block; margin-bottom: 6px; }
+      .mode p { margin: 0; font-size: 12px; line-height: 1.55; }
+
+      .queue-source, .queue-target { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+      .queue-target { min-height: 72px; margin: 12px 0; padding: 9px; border: 2px dashed #607185; border-radius: 12px; }
+      .queue-target:empty::after { grid-column: 1 / -1; align-self: center; color: #8393a2; content: "按正确顺序点击上方卡片，它们会来到这里"; font-size: 12px; text-align: center; }
+      .queue-card { position: relative; padding: 11px 11px 11px 36px; border-color: #6d7c8e; border-radius: 10px; background: #f3f5f5; color: var(--ink); text-align: left; }
+      .queue-card::before { position: absolute; left: 11px; content: attr(data-order); color: #768597; }
+      .queue-target .queue-card { border-color: var(--cyan); background: #fff; color: var(--ink); }
+      .scenario-choices { display: grid; gap: 8px; }
+      .scenario-choice { padding: 12px; border-color: #617085; border-radius: 10px; background: #fff; color: var(--ink); text-align: left; }
+
+      .verify-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 18px; }
+      .verify-card { overflow: hidden; display: flex; min-height: 210px; flex-direction: column; border: 2px solid var(--night); border-radius: 16px; background: #20242c; color: #fff; }
+      .verify-card img { width: 100%; height: 135px; object-fit: contain; background: #20242c; }
+      .verify-copy { display: flex; flex: 1; gap: 12px; align-items: center; justify-content: space-between; padding: 13px; }
+      .verify-copy strong { display: block; }
+      .verify-copy small { color: #aeb8c2; }
+      .verify-copy a { flex: 0 0 auto; padding: 8px 10px; border-radius: 9px; background: var(--lime); color: var(--night); font-size: 12px; font-weight: 900; }
+
+      .finish { padding: 27px; border: 2px solid var(--night); border-radius: 22px; background: var(--night); color: #fff; text-align: center; }
+      .finish-badge { display: grid; width: 74px; height: 74px; margin: 0 auto 14px; place-items: center; border: 2px solid var(--lime); border-radius: 50%; color: var(--lime); font-size: 34px; }
+      .finish h2 { margin-bottom: 8px; }
+      .finish p { max-width: 650px; margin: 0 auto 18px; color: #aebdcc; line-height: 1.7; }
+      .finish-actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+      .toast { position: fixed; right: 18px; bottom: 18px; z-index: 50; max-width: 320px; padding: 12px 15px; border: 2px solid var(--night); border-radius: 12px; background: var(--lime); box-shadow: 4px 4px 0 var(--night); font-size: 13px; font-weight: 900; transform: translateY(130%); transition: transform 220ms ease; }
+      .toast.show { transform: translateY(0); }
+
+      @keyframes pulse { 50% { box-shadow: 0 0 0 14px rgba(191,244,75,.04), 0 0 8px var(--lime); } }
+      @media (max-width: 880px) {
+        .hero { grid-template-columns: 1fr; }
+        .layout { grid-template-columns: 1fr; }
+        .side-nav { position: static; display: flex; overflow-x: auto; gap: 4px; }
+        .side-nav strong { display: none; }
+        .side-nav a { flex: 0 0 auto; }
+        .benefits { grid-template-columns: 1fr; }
+      }
+      @media (max-width: 620px) {
+        .shell { width: min(100% - 20px, 1380px); }
+        .topbar { grid-template-columns: 1fr auto; }
+        .stage-pill { display: none; }
+        .signal { min-width: 120px; }
+        .hero { padding: 26px 20px; }
+        h1 { font-size: 45px; }
+        .choices, .os-tabs, .price-grid, .mode-grid, .queue-source, .queue-target, .verify-grid { grid-template-columns: 1fr; }
+        .download-panel { grid-template-columns: 1fr; }
+        .step { grid-template-columns: 1fr; }
+        .step-num { width: 39px; height: 39px; }
+        .lesson-card { padding: 20px 16px; }
+      }
+      @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; } }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <header class="topbar">
+        <a class="home-link" href="home.html"><span class="home-icon">←</span><span>返回新手村</span></a>
+        <span class="stage-pill">LEVEL 01 · 网络通行证</span>
+        <div class="signal" aria-label="互动完成进度">
+          <div class="signal-label"><span>理解信号</span><span id="signalText">0 / 3</span></div>
+          <div class="signal-track"><div class="signal-fill" id="signalFill"></div></div>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero">
+          <div class="hero-copy">
+            <span class="kicker">● 第一关 · 预计 5 分钟完成配置</span>
+            <h1>环境准备与<br />网络配置</h1>
+            <p>先给电脑办一张“全球开发者社区通行证”。安装工具、导入订阅、选择节点与模式，最后亲手验证网络是否连接成功。</p>
+            <div class="hero-meta"><span>3 个轻互动</span><span>7 张实操图</span><span>无需答对才能继续</span></div>
+          </div>
+          <aside class="radar">
+            <div class="radar-top"><span class="pulse"></span><div><small>MISSION STATUS</small><strong>等待建立连接</strong></div></div>
+            <ul class="radar-list">
+              <li>获取 GitHub 上全球开发者分享的代码</li>
+              <li>稳定使用 ChatGPT、Claude、Gemini</li>
+              <li>用 Google 更精准地查询技术报错</li>
+            </ul>
+          </aside>
+        </section>
+
+        <div class="notice"><strong>使用提醒：</strong>请遵守所在地法律法规及学校网络规定，仅将相关工具用于合法的 AI 学习、开发与资料访问。</div>
+
+        <div class="layout">
+          <nav class="side-nav" aria-label="本关目录">
+            <strong>任务路线</strong>
+            <a href="#why"><span class="nav-num">01</span>为什么需要</a>
+            <a href="#install"><span class="nav-num">02</span>选择安装包</a>
+            <a href="#subscribe"><span class="nav-num">03</span>获取订阅</a>
+            <a href="#configure"><span class="nav-num">04</span>完成配置</a>
+            <a href="#verify"><span class="nav-num">05</span>检验连接</a>
+          </nav>
+
+          <div class="content">
+            <section class="lesson-card" id="why">
+              <span class="section-tag">01 · WHY</span>
+              <h2>为什么要准备网络环境？</h2>
+              <p>“科学上网”是指通过特定工具访问国际互联网。就像学英语需要去英语角一样，学习最前沿的 AI 技术，我们需要进入全球开发者的社区。</p>
+              <div class="benefits">
+                <article class="benefit"><span>🧰</span><strong>获取最新工具</strong><p>访问 GitHub，下载全球开发者共享的优质代码。</p></article>
+                <article class="benefit"><span>🧠</span><strong>连接最强大脑</strong><p>稳定使用 ChatGPT、Claude、Gemini 等顶级 AI 模型。</p></article>
+                <article class="benefit"><span>🔎</span><strong>解决开发难题</strong><p>Google 往往能更精准地找到技术报错的答案。</p></article>
+              </div>
+
+              <div class="lab" data-lab="why">
+                <div class="lab-head"><div><h3>互动 1 · 找出真正的用途</h3><p>可以多选。选完看看你是否抓住了准备网络环境的重点。</p></div><span class="lab-count">+1 信号</span></div>
+                <div class="choices">
+                  <button class="choice" type="button" data-correct="true">访问 GitHub 获取开源代码</button>
+                  <button class="choice" type="button" data-correct="true">稳定使用国际主流 AI 模型</button>
+                  <button class="choice" type="button" data-correct="true">用 Google 查技术报错</button>
+                  <button class="choice" type="button" data-correct="false">让电脑运行速度自动翻倍</button>
+                </div>
+                <div class="lab-actions"><button class="action" type="button" id="checkWhy">检查答案</button><span>答错也可以继续学习 ↓</span></div>
+                <div class="feedback" id="whyFeedback" aria-live="polite">请选择你认为正确的用途。</div>
+              </div>
+            </section>
+
+            <section class="lesson-card" id="install">
+              <span class="section-tag">02 · INSTALL</span>
+              <h2>选对你的安装包</h2>
+              <p>先确认电脑系统与芯片，再从课程网站直接下载安装包。三个文件均来自 Clash Verge Rev 官方 v2.5.1 Release，并已按官方 SHA-256 校验。</p>
+              <div class="os-tabs" role="tablist" aria-label="选择电脑系统">
+                <button class="os-tab active" type="button" data-os="m">Mac · M 芯片</button>
+                <button class="os-tab" type="button" data-os="intel">Mac · Intel 芯片</button>
+                <button class="os-tab" type="button" data-os="win">Windows</button>
+              </div>
+              <div class="download-panel">
+                <div><h3 id="packageName">Clash Verge 2.5.1 · Apple 芯片版</h3><p id="packageHint">适用于搭载 M1 / M2 / M3 / M4 系列芯片的 Mac · 58.8MB</p></div>
+                <div class="download-actions">
+                  <a class="action" id="packageLink" href="downloads/Clash.Verge_2.5.1_aarch64.dmg" download>课程内直接下载 ↓</a>
+                </div>
+              </div>
+              <p class="tiny">Mac 用户不知道芯片类型时，可点击左上角苹果菜单 →“关于本机”查看。</p>
+            </section>
+
+            <section class="lesson-card" id="subscribe">
+              <span class="section-tag">03 · SUBSCRIPTION</span>
+              <h2>购买并获取订阅链接</h2>
+              <p>安装软件后，还需要购买订阅。购买完成后会获得一条订阅链接 URL，稍后把它导入 Clash Verge。</p>
+              <div class="price-grid">
+                <article class="price-card featured"><h3>樱花猫</h3><div class="price">3.8 元/月 10G · 9.8 元/月 20G</div><p>无需现有网络工具也能登录。可以先买一个月，并支持一键导入 Clash。</p><a href="https://1-sakuracat.com/register?code=u8BLlhvA" target="_blank" rel="noreferrer">打开购买链接 ↗</a></article>
+                <article class="price-card"><h3>良心云</h3><div class="price">6 元/月 · 1000G</div><p>需要已经具备网络环境才能打开，适合作为后续选择。</p><a href="https://xn--9kqz23b19z.com/#/register?code=qRDUC7eN" target="_blank" rel="noreferrer">打开购买链接 ↗</a></article>
+              </div>
+              <figure class="shot"><img src="lesson1-assets/subscription-plan.png" alt="樱花猫网站的一键导入 Clash 入口示意图" /><figcaption class="caption">购买后可选择“一键导入到 Clash”，也可以复制订阅链接手动导入。</figcaption></figure>
+            </section>
+
+            <section class="lesson-card" id="configure">
+              <span class="section-tag">04 · CONFIGURE</span>
+              <h2>完成 4 步配置</h2>
+              <p>配置的核心顺序是：导入订阅、选择节点、确认模式、开启系统代理。下面边操作边理解每一步。</p>
+
+              <div class="step">
+                <span class="step-num">1</span>
+                <div><h3>导入订阅</h3><p>进入“订阅”，把购买后获得的订阅链接 URL 粘贴到输入框，再点击“导入”。</p><figure class="shot"><img src="lesson1-assets/import-subscription.jpg" alt="Clash Verge 导入订阅的三个操作位置" /><figcaption class="caption">按图中 1、2、3 的顺序：进入订阅 → 粘贴 URL → 导入。</figcaption></figure></div>
+              </div>
+
+              <div class="step">
+                <span class="step-num">!</span>
+                <div><h3>旧订阅造成网络错误时</h3><p>旧订阅可能正在使用不可用的节点下载新配置。先进入“代理”，把模式改为“直连”再导入；导入成功后切回“规则”模式用于上网。</p><figure class="shot"><img src="lesson1-assets/direct-mode.jpg" alt="Clash Verge 切换到直连模式的位置" /><figcaption class="caption">临时选择“直连”完成订阅导入，成功后不要忘记切回“规则”。</figcaption></figure></div>
+              </div>
+
+              <div class="step">
+                <span class="step-num">2</span>
+                <div><h3>选择节点并测试延迟</h3><p>成功导入订阅后，需要手动选择代理节点。想用哪个就点击哪个；延迟数字不一定准确，可手动点击数字重新测试，或点击测速图标测试全部节点。</p><figure class="shot"><img src="lesson1-assets/proxy-mode.jpg" alt="Clash Verge 选择代理节点、测速和规则模式的位置" /><figcaption class="caption">图中 1 选节点，2 测全部节点延迟，3 选择上网模式。</figcaption></figure>
+                  <div class="mode-grid">
+                    <article class="mode recommended"><strong>规则 · 推荐</strong><p>符合规则的国外网址走代理，国内网址直连，不额外消耗流量。</p></article>
+                    <article class="mode"><strong>全局 · 一般不选</strong><p>所有网址都走代理，通常没有必要。</p></article>
+                    <article class="mode"><strong>直连 · 临时排障</strong><p>不走代理，等同于关闭工具；可用于解决导入失败。</p></article>
+                  </div>
+                </div>
+              </div>
+
+              <div class="lab" data-lab="trouble">
+                <div class="lab-head"><div><h3>互动 2 · 导入失败，先动哪里？</h3><p>情境：你不是第一次使用，软件里有一条已经失效的旧订阅。导入新订阅时提示网络错误。</p></div><span class="lab-count">+1 信号</span></div>
+                <div class="scenario-choices">
+                  <button class="scenario-choice" type="button" data-answer="wrong">不断重复点击“导入”，等它自己成功</button>
+                  <button class="scenario-choice" type="button" data-answer="correct">先切到“直连”模式导入，成功后再切回“规则”模式</button>
+                  <button class="scenario-choice" type="button" data-answer="wrong">直接开启“全局”模式，并保持一直使用</button>
+                </div>
+                <div class="lab-actions"><button class="action" type="button" id="checkTrouble">检查答案</button></div>
+                <div class="feedback" id="troubleFeedback" aria-live="polite">先选择一个处理方式，再点击“检查答案”。</div>
+              </div>
+
+              <div class="step">
+                <span class="step-num">3</span>
+                <div><h3>开启系统代理</h3><p>这一步必不可少。开启后，Clash Verge 才会真正接管电脑系统的网络流量。很多“软件开着却无法访问”的问题，就是漏掉了这里。</p><figure class="shot"><img src="lesson1-assets/system-proxy.jpg" alt="Clash Verge 设置中开启系统代理的位置" /><figcaption class="caption">进入“设置”，打开“系统代理”开关。</figcaption></figure></div>
+              </div>
+
+              <div class="step">
+                <span class="step-num">4</span>
+                <div><h3>其余高级功能暂时不用管</h3><p>到这里核心配置就完成了。其他高级功能，大部分新手暂时用不到；有兴趣时可以自行点击探索，或用 Google 搜索相关功能。</p></div>
+              </div>
+
+              <div class="lab" data-lab="queue">
+                <div class="lab-head"><div><h3>互动 3 · 排好配置任务队列</h3><p>四步已经学完。现在按正确顺序点击四张卡片，检查自己是否记住了完整流程。</p></div><span class="lab-count">+1 信号</span></div>
+                <div class="queue-source" id="queueSource">
+                  <button class="queue-card" type="button" data-step="3" data-order="?">开启系统代理</button>
+                  <button class="queue-card" type="button" data-step="1" data-order="?">选择可用节点</button>
+                  <button class="queue-card" type="button" data-step="0" data-order="?">导入订阅链接</button>
+                  <button class="queue-card" type="button" data-step="2" data-order="?">确认使用规则模式</button>
+                </div>
+                <div class="queue-target" id="queueTarget"></div>
+                <div class="lab-actions"><button class="action" type="button" id="checkQueue">检查顺序</button><button class="action secondary" type="button" id="resetQueue">重新排列</button></div>
+                <div class="feedback" id="queueFeedback" aria-live="polite">先把 4 张卡片全部放入任务队列。</div>
+              </div>
+            </section>
+
+            <section class="lesson-card" id="verify">
+              <span class="section-tag">05 · VERIFY</span>
+              <h2>检验时刻：信号接通了吗？</h2>
+              <p>分别打开 Google 和 YouTube。如果两个页面都能正常访问，说明你的电脑已经连接全球互联网。</p>
+              <div class="verify-grid">
+                <article class="verify-card"><img src="lesson1-assets/google-check.png" alt="Google 首页成功打开的示例" /><div class="verify-copy"><div><strong>Google</strong><small>全球搜索引擎</small></div><a href="https://www.google.com/" target="_blank" rel="noreferrer">打开验证 ↗</a></div></article>
+                <article class="verify-card"><img src="lesson1-assets/youtube-check.png" alt="YouTube 标志" /><div class="verify-copy"><div><strong>YouTube</strong><small>国外视频网站，也称“油管”</small></div><a href="https://www.youtube.com/" target="_blank" rel="noreferrer">打开验证 ↗</a></div></article>
+              </div>
+            </section>
+
+            <section class="finish">
+              <div class="finish-badge">⌁</div>
+              <h2 id="finishTitle">网络通行证待签发</h2>
+              <p id="finishText">确认 Google 或 YouTube 可以正常打开后，就可以完成本关。三个互动用于检查理解，但不会阻止你通关。</p>
+              <div class="finish-actions"><button class="action" type="button" id="finishBtn">我已验证，完成本关</button><a class="action secondary" href="prd.html">进入第二关</a><a class="action secondary" href="home.html">返回新手村</a></div>
+            </section>
+          </div>
+        </div>
+      </main>
+    </div>
+    <div class="toast" id="toast" role="status"></div>
+
+    <script>
+      const STORAGE_KEY = "newbie-village-network-setup-v1";
+      const LAB_KEY = "newbie-village-network-labs-v1";
+      const osData = {
+        m: { name: "Clash Verge 2.5.1 · Apple 芯片版", hint: "适用于搭载 M1 / M2 / M3 / M4 系列芯片的 Mac · 58.8MB", file: "Clash.Verge_2.5.1_aarch64.dmg" },
+        intel: { name: "Clash Verge 2.5.1 · Intel 芯片版", hint: "适用于处理器显示 Intel 的 Mac · 62.7MB", file: "Clash.Verge_2.5.1_x64.dmg" },
+        win: { name: "Clash Verge 2.5.1 · Windows 64 位安装版", hint: "适用于绝大多数 64 位 Windows 电脑 · 44.9MB", file: "Clash.Verge_2.5.1_x64-setup.exe" },
+      };
+      const labState = new Set(JSON.parse(localStorage.getItem(LAB_KEY) || "[]"));
+      const signalText = document.querySelector("#signalText");
+      const signalFill = document.querySelector("#signalFill");
+      const toast = document.querySelector("#toast");
+
+      function saveLabs() {
+        localStorage.setItem(LAB_KEY, JSON.stringify([...labState]));
+        signalText.textContent = `${labState.size} / 3`;
+        signalFill.style.width = `${(labState.size / 3) * 100}%`;
+      }
+      function completeLab(name) { labState.add(name); saveLabs(); }
+      function showToast(message) { toast.textContent = message; toast.classList.add("show"); setTimeout(() => toast.classList.remove("show"), 2200); }
+      function resetFeedback(element, message) { element.className = "feedback"; element.textContent = message; }
+      function armCheck(button, ready) { button.classList.toggle("ready", ready); }
+
+      document.querySelectorAll('.lab[data-lab]').forEach((lab) => {
+        if (labState.has(lab.dataset.lab)) lab.querySelector(".lab-count").textContent = "已完成 ✓";
+      });
+      saveLabs();
+
+      const whyChoices = [...document.querySelectorAll(".choice")];
+      const checkWhy = document.querySelector("#checkWhy");
+      whyChoices.forEach((button) => button.addEventListener("click", () => {
+        whyChoices.forEach((item) => item.classList.remove("correct", "wrong"));
+        button.classList.toggle("selected");
+        resetFeedback(document.querySelector("#whyFeedback"), "选择完成后，点击“检查答案”。");
+        armCheck(checkWhy, whyChoices.some((item) => item.classList.contains("selected")));
+      }));
+      checkWhy.addEventListener("click", () => {
+        const selected = whyChoices.filter((item) => item.classList.contains("selected"));
+        if (!selected.length) {
+          const feedback = document.querySelector("#whyFeedback");
+          feedback.className = "feedback try";
+          feedback.textContent = "请先选择答案。";
+          return;
+        }
+        const exact = selected.length === 3 && selected.every((item) => item.dataset.correct === "true");
+        const feedback = document.querySelector("#whyFeedback");
+        whyChoices.forEach((item) => {
+          const picked = item.classList.contains("selected");
+          if (picked) item.classList.add(item.dataset.correct === "true" ? "correct" : "wrong");
+          else if (item.dataset.correct === "true" && !exact) item.classList.add("wrong");
+        });
+        feedback.className = `feedback ${exact ? "good" : "try"}`;
+        feedback.textContent = exact ? "全部正确！核心价值是获取工具、连接 AI 模型和检索技术答案。" : "再想想：网络工具不会让电脑性能自动翻倍。真正的三个用途就在上方知识卡片里。";
+        armCheck(checkWhy, false);
+        completeLab("why");
+        document.querySelector('[data-lab="why"] .lab-count').textContent = "已完成 ✓";
+      });
+
+      document.querySelectorAll(".os-tab").forEach((button) => button.addEventListener("click", () => {
+        document.querySelectorAll(".os-tab").forEach((item) => item.classList.toggle("active", item === button));
+        const data = osData[button.dataset.os];
+        document.querySelector("#packageName").textContent = data.name;
+        document.querySelector("#packageHint").textContent = data.hint;
+        document.querySelector("#packageLink").href = `downloads/${data.file}`;
+        document.querySelector("#packageLink").download = data.file;
+      }));
+
+      const queueSource = document.querySelector("#queueSource");
+      const queueTarget = document.querySelector("#queueTarget");
+      const checkQueue = document.querySelector("#checkQueue");
+      function updateQueueNumbers() { [...queueTarget.children].forEach((item, index) => item.dataset.order = index + 1); [...queueSource.children].forEach((item) => item.dataset.order = "?"); }
+      function resetQueueResult(message = "排列完成后，点击“检查顺序”。") {
+        document.querySelectorAll("#queueSource .queue-card, #queueTarget .queue-card").forEach((item) => item.classList.remove("correct", "wrong"));
+        resetFeedback(document.querySelector("#queueFeedback"), message);
+        armCheck(checkQueue, queueTarget.children.length === 4);
+      }
+      document.querySelectorAll(".queue-card").forEach((card) => card.addEventListener("click", () => { (card.parentElement === queueSource ? queueTarget : queueSource).append(card); updateQueueNumbers(); resetQueueResult(); }));
+      document.querySelector("#resetQueue").addEventListener("click", () => { [...queueTarget.children].forEach((item) => queueSource.append(item)); updateQueueNumbers(); resetQueueResult("已清空，可以重新排列。"); });
+      checkQueue.addEventListener("click", () => {
+        const steps = [...queueTarget.children].map((item) => Number(item.dataset.step));
+        if (steps.length !== 4) {
+          const feedback = document.querySelector("#queueFeedback");
+          feedback.className = "feedback try";
+          feedback.textContent = "请先把 4 张卡片全部放入任务队列。";
+          return;
+        }
+        const exact = steps.length === 4 && steps.every((step, index) => step === index);
+        const feedback = document.querySelector("#queueFeedback");
+        [...queueTarget.children].forEach((item) => item.classList.add(exact ? "correct" : "wrong"));
+        feedback.className = `feedback ${exact ? "good" : "try"}`;
+        feedback.textContent = exact ? "顺序正确：导入订阅 → 选节点 → 规则模式 → 开启系统代理。" : "还差一点。先让软件拿到订阅，再选择节点和规则模式，最后让它接管系统网络。";
+        armCheck(checkQueue, false);
+        if (steps.length === 4) { completeLab("queue"); document.querySelector('[data-lab="queue"] .lab-count').textContent = "已完成 ✓"; }
+      });
+
+      const scenarioChoices = [...document.querySelectorAll(".scenario-choice")];
+      const checkTrouble = document.querySelector("#checkTrouble");
+      scenarioChoices.forEach((button) => button.addEventListener("click", () => {
+        scenarioChoices.forEach((item) => item.classList.remove("selected", "correct", "wrong"));
+        button.classList.add("selected");
+        resetFeedback(document.querySelector("#troubleFeedback"), "选择完成后，点击“检查答案”。");
+        armCheck(checkTrouble, true);
+      }));
+      checkTrouble.addEventListener("click", () => {
+        const button = scenarioChoices.find((item) => item.classList.contains("selected"));
+        const feedback = document.querySelector("#troubleFeedback");
+        if (!button) {
+          feedback.className = "feedback try";
+          feedback.textContent = "请先选择一个处理方式。";
+          return;
+        }
+        const correct = button.dataset.answer === "correct";
+        button.classList.add(correct ? "correct" : "wrong");
+        feedback.className = `feedback ${correct ? "good" : "try"}`;
+        feedback.textContent = correct ? "正确！先直连绕开失效节点，导入成功后切回规则模式。" : "这个做法解决不了旧节点问题。正确思路是临时切直连，导入后再回到规则模式。";
+        armCheck(checkTrouble, false);
+        completeLab("trouble");
+        document.querySelector('[data-lab="trouble"] .lab-count').textContent = "已完成 ✓";
+      });
+
+      const finishBtn = document.querySelector("#finishBtn");
+      if (localStorage.getItem(STORAGE_KEY)) {
+        document.querySelector("#finishTitle").textContent = "网络通行证已签发";
+        document.querySelector("#finishText").textContent = "你已经完成环境准备。之后若网络失效，可以回到本关按步骤逐项排查。";
+        finishBtn.textContent = "已完成 ✓";
+      }
+      finishBtn.addEventListener("click", () => {
+        localStorage.setItem(STORAGE_KEY, "done");
+        document.querySelector("#finishTitle").textContent = "网络通行证已签发";
+        document.querySelector("#finishText").textContent = "你已经完成环境准备。之后若网络失效，可以回到本关按步骤逐项排查。";
+        finishBtn.textContent = "已完成 ✓";
+        showToast("第一关完成：环境准备与网络配置");
+      });
+    </script>
+  </body>
+</html>
